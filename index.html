@@ -526,7 +526,7 @@
         height: auto; max-height: none;
       }
       .hero-trust, .hero-platform {
-        height: 55vh; min-height: 360px;
+        height: 55vh; min-height: 400px;
         padding: var(--sp-xl) var(--sp-md);
         justify-content: flex-end;
       }
@@ -547,6 +547,42 @@
       .kc-slide { flex: 0 0 100%; width: 100%; }
       .kc-btn { width: 36px; height: 36px; }
       .stats-grid { grid-template-columns: 1fr 1fr; }
+
+      /* ── Hero mobile fix ── */
+      /* Switch content from absolute to flow so it stacks cleanly */
+      .hero-trust,
+      .hero-platform {
+        height: auto;
+        min-height: 520px;
+        padding-top: 108px;   /* clears nav (72px) + rule breathing room */
+        padding-bottom: 40px;
+      }
+      .hero-trust-content,
+      .hero-platform-content {
+        position: static;
+      }
+      .hero-trust-rule { top: 80px; }
+      .network-badge   { top: 80px; }
+
+      /* Slightly tighter typography */
+      .hero-trust-heading,
+      .hero-platform-heading { font-size: 26px; }
+      .hero-trust-desc,
+      .hero-platform-desc {
+        font-size: 14px;
+        margin-bottom: 20px;
+        max-width: none;
+      }
+
+      /* Stack CTA buttons vertically */
+      .hero-trust-ctas {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .hero-trust-ctas .btn {
+        width: 100%;
+        justify-content: center;
+      }
     }
 
     /* ════════════════════════════════════════
@@ -778,6 +814,11 @@
       <li><a href="werken-bij.html">Werken bij</a></li>
       <li><a href="contact.html" class="nav-cta">Plan een gesprek</a></li>
     </ul>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Menu openen" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
   </div>
 </nav>
 
@@ -1187,27 +1228,27 @@
         <h3 class="d-title">Belastingadvies</h3>
         <p class="d-desc">Fiscale kansen benutten en risico's beheersen. Persoonlijk, deskundig en vooruitdenkend.</p>
       </div>
-      <div class="d-card fos" style="transition-delay:60ms">
+      <div class="d-card fos" style="transition-delay:80ms">
         <div class="d-icon"><svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
         <h3 class="d-title">Accountancy &amp; advisering</h3>
         <p class="d-desc">U bent druk met ondernemen. Wij zorgen voor overzicht, inzicht en continuïteit.</p>
       </div>
-      <div class="d-card fos" style="transition-delay:120ms">
+      <div class="d-card fos" style="transition-delay:160ms">
         <div class="d-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
         <h3 class="d-title">Estate planning</h3>
         <p class="d-desc">Vermogensoverdracht fiscaal zo voordelig mogelijk geregeld — nu en bij overlijden.</p>
       </div>
-      <div class="d-card fos" style="transition-delay:60ms">
+      <div class="d-card fos" style="transition-delay:80ms">
         <div class="d-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
         <h3 class="d-title">Rijksmonumenten</h3>
         <p class="d-desc">Als eigenaar van een rijksmonument heeft u recht op bijzondere fiscale voordelen.</p>
       </div>
-      <div class="d-card fos" style="transition-delay:120ms">
+      <div class="d-card fos" style="transition-delay:160ms">
         <div class="d-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
         <h3 class="d-title">Vrije beroepen &amp; medisch</h3>
         <p class="d-desc">Specialist op het gebied van vrije beroepen en medisch specialisten.</p>
       </div>
-      <div class="d-card fos" style="transition-delay:180ms">
+      <div class="d-card fos" style="transition-delay:240ms">
         <div class="d-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
         <h3 class="d-title">Begeleiding echtscheiding</h3>
         <p class="d-desc">Financieel en fiscaal inzicht in een moeilijke periode — helder en betrokken.</p>

@@ -12,6 +12,34 @@
     updateNav();
   }
 
+  /* ── Mobile menu toggle ── */
+  var toggle = document.getElementById('nav-toggle');
+  if (toggle && nav) {
+    toggle.addEventListener('click', function () {
+      var isOpen = nav.classList.toggle('menu-open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+      toggle.setAttribute('aria-label', isOpen ? 'Menu sluiten' : 'Menu openen');
+    });
+
+    /* Close when a menu link is clicked */
+    document.querySelectorAll('.nav-links a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        nav.classList.remove('menu-open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Menu openen');
+      });
+    });
+
+    /* Close when clicking outside the nav */
+    document.addEventListener('click', function (e) {
+      if (nav.classList.contains('menu-open') && !nav.contains(e.target)) {
+        nav.classList.remove('menu-open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Menu openen');
+      }
+    });
+  }
+
   /* ── Fade-on-scroll ── */
   var obs = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
