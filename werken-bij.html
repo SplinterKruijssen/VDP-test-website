@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Werken bij VDP Advies</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── Werken bij page ── */
+
+    /* Intro */
+    .wb-intro-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: var(--sp-2xl); align-items: center;
+    }
+
+    /* Pillars */
+    .pillars-section { background: var(--blue-navy); color: var(--white); }
+    .pillars-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: var(--sp-md); margin-top: var(--sp-xl);
+    }
+    .pillar-card {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: var(--r-lg);
+      padding: var(--sp-xl) var(--sp-lg);
+      transition: background 200ms ease, transform 200ms ease-out;
+    }
+    .pillar-card:hover { background: rgba(255,255,255,.09); transform: translateY(-3px); }
+    .pillar-icon {
+      width: 48px; height: 48px;
+      background: var(--blue-primary);
+      border-radius: var(--r-sm);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: var(--sp-md);
+    }
+    .pillar-icon svg {
+      width: 24px; height: 24px;
+      stroke: var(--white); fill: none;
+      stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .pillar-title {
+      font-family: var(--font-d); font-size: 20px;
+      font-weight: 400; letter-spacing: -.01em;
+      color: var(--white); margin-bottom: 10px;
+    }
+    .pillar-body { font-size: 14px; line-height: 1.68; color: rgba(255,255,255,.52); }
+
+    /* What we offer */
+    .offer-section { background: var(--white); }
+    .offer-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: var(--sp-md); margin-top: var(--sp-xl);
+    }
+    .offer-item {
+      padding: var(--sp-lg);
+      border-left: 3px solid var(--blue-pale);
+      background: var(--gray-50);
+      border-radius: 0 var(--r-md) var(--r-md) 0;
+      transition: border-color 200ms ease, background 200ms ease;
+    }
+    .offer-item:hover { border-left-color: var(--blue-primary); background: var(--blue-faint); }
+    .offer-title {
+      font-family: var(--font-d); font-size: 17px; font-weight: 400;
+      letter-spacing: -.01em; color: var(--gray-800); margin-bottom: 8px;
+    }
+    .offer-body { font-size: 14px; line-height: 1.65; color: var(--gray-600); }
+
+    /* Vacatures */
+    .vacatures-section { background: var(--gray-50); }
+    .vacature-card {
+      background: var(--white);
+      border-radius: var(--r-md);
+      padding: var(--sp-lg) var(--sp-xl);
+      box-shadow: var(--sh-card);
+      display: flex; align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-lg);
+      transition: transform 200ms ease-out, box-shadow 200ms ease-out;
+      margin-bottom: var(--sp-sm);
+    }
+    .vacature-card:hover { transform: translateY(-3px); box-shadow: var(--sh-hover); }
+    .vacature-info { flex: 1; }
+    .vacature-title {
+      font-family: var(--font-d); font-size: 20px;
+      font-weight: 400; letter-spacing: -.015em;
+      color: var(--gray-800); margin-bottom: 6px;
+    }
+    .vacature-meta {
+      display: flex; gap: var(--sp-md); flex-wrap: wrap;
+    }
+    .vacature-tag {
+      font-size: 12px; font-weight: 600;
+      letter-spacing: .04em; color: var(--blue-primary);
+      background: var(--blue-pale);
+      padding: 4px 10px; border-radius: 100px;
+    }
+    .vacature-arrow {
+      width: 40px; height: 40px; flex-shrink: 0;
+      background: var(--blue-pale); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 200ms ease;
+    }
+    .vacature-card:hover .vacature-arrow { background: var(--blue-primary); }
+    .vacature-card:hover .vacature-arrow svg { stroke: var(--white); }
+    .vacature-arrow svg {
+      width: 16px; height: 16px;
+      stroke: var(--blue-primary); fill: none;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+      transition: stroke 200ms ease;
+    }
+
+    /* Open sollicitatie CTA */
+    .open-soll {
+      background: var(--blue-primary); color: var(--white);
+      border-radius: var(--r-lg);
+      padding: var(--sp-xl);
+      text-align: center;
+      margin-top: var(--sp-xl);
+    }
+    .open-soll h3 {
+      font-family: var(--font-d); font-size: 26px;
+      font-weight: 400; letter-spacing: -.02em;
+      margin-bottom: var(--sp-sm);
+    }
+    .open-soll p { font-size: 15px; opacity: .7; margin-bottom: var(--sp-lg); }
+    .open-soll-btns { display: flex; gap: var(--sp-sm); justify-content: center; flex-wrap: wrap; }
+
+    /* Quote band */
+    .quote-band {
+      background: var(--blue-deep); color: var(--white);
+      padding: var(--sp-xl) var(--sp-lg);
+      text-align: center;
+    }
+    .quote-text {
+      font-family: var(--font-d);
+      font-size: clamp(18px, 2.2vw, 26px);
+      font-weight: 300; font-style: italic;
+      line-height: 1.5; max-width: 680px; margin: 0 auto var(--sp-md);
+      color: rgba(255,255,255,.82);
+    }
+    .quote-source { font-size: 13px; color: rgba(255,255,255,.32); }
+
+    /* Vacature card as button */
+    .vacature-card { cursor: pointer; }
+
+    /* Vacancy detail modal */
+    .vac-modal-overlay {
+      position: fixed; inset: 0; z-index: 900;
+      display: flex; align-items: center; justify-content: center;
+      padding: var(--sp-lg);
+      opacity: 0; pointer-events: none;
+      transition: opacity 250ms ease;
+    }
+    .vac-modal-overlay.is-open { opacity: 1; pointer-events: all; }
+    .vac-modal-backdrop {
+      position: absolute; inset: 0;
+      background: rgba(5,13,56,.52);
+      backdrop-filter: blur(3px);
+    }
+    .vac-modal-panel {
+      position: relative; z-index: 1;
+      background: var(--white);
+      border-radius: var(--r-xl);
+      padding: var(--sp-xl);
+      max-width: 620px; width: 100%;
+      max-height: 90vh; overflow-y: auto;
+      box-shadow: var(--sh-elev), 0 0 80px rgba(27,47,160,.14);
+      transform: translateY(18px);
+      transition: transform 300ms cubic-bezier(.22,1,.36,1);
+    }
+    .vac-modal-overlay.is-open .vac-modal-panel { transform: translateY(0); }
+    .vac-modal-close {
+      position: absolute; top: 20px; right: 20px;
+      width: 36px; height: 36px;
+      background: var(--gray-50); border: none; border-radius: 50%;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 150ms ease;
+    }
+    .vac-modal-close:hover { background: var(--gray-100); }
+    .vac-modal-close svg {
+      width: 15px; height: 15px; stroke: var(--gray-600);
+      fill: none; stroke-width: 2; stroke-linecap: round;
+    }
+    .vac-modal-label {
+      font-size: 11px; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--blue-light);
+      margin-bottom: var(--sp-sm);
+    }
+    .vac-modal-title {
+      font-family: var(--font-d); font-size: clamp(22px, 2.8vw, 28px);
+      font-weight: 400; letter-spacing: -.025em;
+      color: var(--gray-800); margin-bottom: var(--sp-md);
+      padding-right: var(--sp-xl);
+    }
+    .vac-modal-tags {
+      display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: var(--sp-lg);
+    }
+    .vac-modal-tag {
+      font-size: 12px; font-weight: 600; letter-spacing: .04em;
+      color: var(--blue-primary); background: var(--blue-pale);
+      padding: 4px 10px; border-radius: 100px;
+    }
+    .vac-modal-intro {
+      font-size: 15px; line-height: 1.78; color: var(--gray-600);
+      margin-bottom: var(--sp-lg);
+      padding-bottom: var(--sp-lg);
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .vac-modal-section { margin-bottom: var(--sp-lg); }
+    .vac-modal-section-heading {
+      font-family: var(--font-d); font-size: 16px; font-weight: 400;
+      letter-spacing: -.01em; color: var(--gray-800);
+      margin-bottom: var(--sp-sm);
+    }
+    .vac-modal-section p {
+      font-size: 14px; line-height: 1.78; color: var(--gray-600);
+    }
+    .vac-modal-list {
+      list-style: none; display: flex; flex-direction: column; gap: 8px;
+    }
+    .vac-modal-list li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 14px; line-height: 1.65; color: var(--gray-600);
+    }
+    .vac-modal-list li::before {
+      content: '';
+      flex-shrink: 0; width: 5px; height: 5px;
+      background: var(--blue-primary); border-radius: 50%;
+      margin-top: 9px;
+    }
+    .vac-modal-footer {
+      border-top: 1px solid var(--gray-100);
+      padding-top: var(--sp-lg); margin-top: var(--sp-lg);
+      display: flex; gap: var(--sp-sm); flex-wrap: wrap; align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .wb-intro-grid { grid-template-columns: 1fr; }
+      .pillars-grid { grid-template-columns: 1fr; }
+      .offer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .offer-grid { grid-template-columns: 1fr; }
+      .vacature-card { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html">
+      <img src="vdplogonew.png" alt="VDP Advies" class="nav-logo">
+    </a>
+    <ul class="nav-links">
+      <li><a href="over-vdp.html">Over VDP</a></li>
+      <li><a href="onze-diensten.html">Diensten</a></li>
+      <li><a href="vdp-model.html">Het VDP-model</a></li>
+      <li><a href="werken-bij.html" class="active">Werken bij</a></li>
+      <li><a href="contact.html" class="nav-cta">Plan een gesprek</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <p class="page-hero-label">Werken bij VDP</p>
+    <h1 class="page-hero-heading">
+      Werk ergens waar je <em>écht groeit</em>
+    </h1>
+    <p class="page-hero-sub">
+      Jong team. Echte verantwoordelijkheid. Ruimte voor initiatief.
+    </p>
+  </div>
+</div>
+
+<!-- INTRO -->
+<section class="section" style="background:var(--white)">
+  <div class="section-inner">
+    <div class="wb-intro-grid">
+      <div>
+        <p class="section-label fos">Wie wij zijn als werkgever</p>
+        <h2 class="section-heading fos">
+          Meer dan uitvoeren.<br><em>Meedenken en meebouwen.</em>
+        </h2>
+        <p class="fos" style="font-size:17px;line-height:1.78;color:var(--gray-600);margin-bottom:var(--sp-lg)">
+          Bij VDP Advies doe je meer dan uitvoeren. Je denkt mee, je bouwt mee en je groeit mee. In een ambitieus, hecht team dat elkaar kent en waardeert.
+        </p>
+        <p class="fos" style="font-size:16px;line-height:1.78;color:var(--gray-600);margin-bottom:var(--sp-xl)">
+          Wij geloven in echte verantwoordelijkheid. Je krijgt geen micro-management, maar de ruimte om te laten zien wat je kunt. Fouten maken mag — als je ervan leert. Initiatief wordt gewaardeerd en gezien.
+        </p>
+        <div class="fos" style="display:flex;gap:var(--sp-sm);flex-wrap:wrap">
+          <a href="#vacatures" class="btn btn-primary">Bekijk vacatures</a>
+          <a href="contact.html" class="btn btn-ghost">Open sollicitatie</a>
+        </div>
+      </div>
+      <div class="fos" style="background:var(--blue-pale);border-radius:var(--r-xl);padding:var(--sp-xl);position:relative;overflow:hidden">
+        <!-- Decorative element since no team photo available -->
+        <div style="position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:rgba(27,47,160,.07);border-radius:50%;"></div>
+        <p class="section-label" style="margin-bottom:var(--sp-lg)">VDP in cijfers</p>
+        <div style="display:flex;flex-direction:column;gap:var(--sp-lg)">
+          <div class="stat">
+            <div class="stat-n">100+</div>
+            <div class="stat-l">Jaar vakkennis in huis</div>
+          </div>
+          <div class="stat">
+            <div class="stat-n">3</div>
+            <div class="stat-l">Kantoren, één team</div>
+          </div>
+          <div class="stat">
+            <div class="stat-n">Altijd</div>
+            <div class="stat-l">Een collega die meedenkt</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILLARS -->
+<section class="section pillars-section section-dark">
+  <div class="section-inner">
+    <p class="section-label fos">Waarom VDP</p>
+    <h2 class="section-heading fos">
+      Vier redenen om hier<br>te willen werken
+    </h2>
+    <div class="pillars-grid">
+      <div class="pillar-card fos">
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg>
+        </div>
+        <h3 class="pillar-title">Ambitie &amp; groei</h3>
+        <p class="pillar-body">Je krijgt ruimte om te ontwikkelen — en wij investeren daarin. Via de VDP Academy, externe cursussen en dagelijkse uitdagingen leer je constant bij.</p>
+      </div>
+      <div class="pillar-card fos" style="transition-delay:80ms">
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3 class="pillar-title">Echt een team</h3>
+        <p class="pillar-body">Geen anonieme collega's. Mensen die je kent en op kunt bouwen. Een hecht team dat samenwerkt, kennis deelt en elkaar echt kent.</p>
+      </div>
+      <div class="pillar-card fos" style="transition-delay:160ms">
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
+        <h3 class="pillar-title">Continu leren</h3>
+        <p class="pillar-body">VDP Academy, collegiale kennisdeling en vakinhoudelijke verdieping. Je blijft scherp, relevant en gemotiveerd.</p>
+      </div>
+      <div class="pillar-card fos" style="transition-delay:240ms">
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+        </div>
+        <h3 class="pillar-title">Leuke sfeer</h3>
+        <p class="pillar-body">Teamdagen, uitjes en informele momenten. Wij zijn gewoon een prettig kantoor om voor te werken.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT WE OFFER -->
+<section class="section offer-section">
+  <div class="section-inner">
+    <p class="section-label fos">Wat wij bieden</p>
+    <h2 class="section-heading fos">
+      Méér dan een baan
+    </h2>
+    <p class="section-sub fos">
+      Naast een goed salaris en prettige werkplek bieden wij je de omgeving om te groeien — als professional én als persoon.
+    </p>
+    <div class="offer-grid">
+      <div class="offer-item fos">
+        <h4 class="offer-title">Marktconform salaris</h4>
+        <p class="offer-body">Eerlijke beloning die aansluit bij je ervaring en inzet.</p>
+      </div>
+      <div class="offer-item fos" style="transition-delay:60ms">
+        <h4 class="offer-title">Echte verantwoordelijkheid</h4>
+        <p class="offer-body">Vanaf dag één werk je aan echte dossiers van echte cliënten.</p>
+      </div>
+      <div class="offer-item fos" style="transition-delay:120ms">
+        <h4 class="offer-title">VDP Academy</h4>
+        <p class="offer-body">Toegang tot ons interne kennisplatform en trainingsprogramma.</p>
+      </div>
+      <div class="offer-item fos">
+        <h4 class="offer-title">Flexibele werktijden</h4>
+        <p class="offer-body">Wij werken resultaatgericht — niet op klokkijkers.</p>
+      </div>
+      <div class="offer-item fos" style="transition-delay:60ms">
+        <h4 class="offer-title">Teamactiviteiten</h4>
+        <p class="offer-body">Regelmatige teamdagen, uitjes en gezamenlijke momenten.</p>
+      </div>
+      <div class="offer-item fos" style="transition-delay:120ms">
+        <h4 class="offer-title">Pensioenregeling</h4>
+        <p class="offer-body">Goede pensioenopbouw via onze collectieve regeling.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VACATURES -->
+<section class="section vacatures-section" id="vacatures">
+  <div class="section-inner">
+    <p class="section-label fos">Openstaande vacatures</p>
+    <h2 class="section-heading fos">
+      Wie zoeken wij?
+    </h2>
+    <p class="section-sub fos">
+      Wij zijn regelmatig op zoek naar gemotiveerde mensen die willen groeien in de wereld van belastingadvies en accountancy.
+    </p>
+
+    <div class="vacature-card fos" data-vac="senior_fiscalist" role="button" tabindex="0" aria-label="Bekijk vacature Senior Fiscalist">
+      <div class="vacature-info">
+        <h3 class="vacature-title">Senior Fiscalist</h3>
+        <div class="vacature-meta">
+          <span class="vacature-tag">WO</span>
+          <span class="vacature-tag">5-10 jaar ervaring</span>
+          <span class="vacature-tag">Bussum / Hilversum</span>
+          <span class="vacature-tag">Fulltime / Parttime</span>
+        </div>
+      </div>
+      <div class="vacature-arrow">
+        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </div>
+    </div>
+    <div class="vacature-card fos" style="transition-delay:60ms" data-vac="junior_fiscalist" role="button" tabindex="0" aria-label="Bekijk vacature Junior Fiscalist">
+      <div class="vacature-info">
+        <h3 class="vacature-title">Junior Fiscalist</h3>
+        <div class="vacature-meta">
+          <span class="vacature-tag">HBO / WO</span>
+          <span class="vacature-tag">Min. 3 jaar ervaring</span>
+          <span class="vacature-tag">Bussum / Hilversum</span>
+          <span class="vacature-tag">Fulltime / Parttime</span>
+        </div>
+      </div>
+      <div class="vacature-arrow">
+        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </div>
+    </div>
+    <div class="vacature-card fos" style="transition-delay:120ms" data-vac="assistent_accountant" role="button" tabindex="0" aria-label="Bekijk vacature Assistent Accountant">
+      <div class="vacature-info">
+        <h3 class="vacature-title">Assistent Accountant</h3>
+        <div class="vacature-meta">
+          <span class="vacature-tag">HBO</span>
+          <span class="vacature-tag">2-5 jaar ervaring</span>
+          <span class="vacature-tag">Bussum / Hilversum</span>
+          <span class="vacature-tag">Fulltime / Parttime</span>
+        </div>
+      </div>
+      <div class="vacature-arrow">
+        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </div>
+    </div>
+
+    <div class="open-soll fos">
+      <h3>Staat jouw ideale functie er niet bij?</h3>
+      <p>Wij horen graag wie je bent en wat je zoekt. Stuur een open sollicitatie en wie weet spreken we elkaar snel.</p>
+      <div class="open-soll-btns">
+        <a href="contact.html" class="btn btn-light">Stuur een open sollicitatie</a>
+        <a href="contact.html" class="btn btn-ghost-white">Stel een vraag</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<div class="quote-band">
+  <p class="quote-text">"Bij VDP krijg je de kans om écht te groeien — niet alleen in kennis, maar ook in verantwoordelijkheid en zichtbaarheid."</p>
+  <p class="quote-source">— Medewerker VDP Advies</p>
+</div>
+
+<footer class="footer">
+  <div class="footer-in">
+    <div class="footer-top">
+      <div>
+        <img src="vdplogonew.png" alt="VDP Advies" class="footer-logo">
+        <p class="footer-tagline">Vertrouwd in advies.<br>Modern in samenwerking.</p>
+      </div>
+      <div>
+        <p class="footer-col-title">VDP Advies</p>
+        <ul class="footer-col-links">
+          <li><a href="over-vdp.html">Over VDP</a></li>
+          <li><a href="onze-diensten.html">Onze diensten</a></li>
+          <li><a href="vdp-model.html">Het VDP-model</a></li>
+          <li><a href="werken-bij.html">Werken bij</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Diensten</p>
+        <ul class="footer-col-links">
+          <li><a href="onze-diensten.html">Belastingadvies</a></li>
+          <li><a href="onze-diensten.html">Accountancy</a></li>
+          <li><a href="onze-diensten.html">Estate planning</a></li>
+          <li><a href="onze-diensten.html">Rijksmonumenten</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Contact</p>
+        <ul class="footer-col-links">
+          <li><a href="contact.html">Bussum · 035-6956900</a></li>
+          <li><a href="contact.html">Hilversum · 035-6980414</a></li>
+          <li><a href="contact.html">Amsterdam · 035-6980414</a></li>
+          <li><a href="mailto:info@vdpadvies.nl">info@vdpadvies.nl</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2024 VDP Advies · Alle rechten voorbehouden</p>
+      <p class="footer-copy">Bussum · Hilversum · Amsterdam</p>
+    </div>
+  </div>
+</footer>
+
+<script src="shared.js" defer></script>
+
+<!-- Vacancy detail modal -->
+<div class="vac-modal-overlay" id="vacModal" role="dialog" aria-modal="true" aria-labelledby="vacModalTitle">
+  <div class="vac-modal-backdrop" id="vacModalBackdrop"></div>
+  <div class="vac-modal-panel">
+    <button class="vac-modal-close" id="vacModalClose" aria-label="Sluiten">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <p class="vac-modal-label">Openstaande vacature</p>
+    <h2 class="vac-modal-title" id="vacModalTitle"></h2>
+    <div class="vac-modal-tags" id="vacModalTags"></div>
+    <p class="vac-modal-intro" id="vacModalIntro"></p>
+    <div id="vacModalSections"></div>
+    <div class="vac-modal-footer">
+      <a href="contact.html" class="btn btn-primary">Solliciteer direct</a>
+      <a href="contact.html" class="btn btn-ghost">Stel een vraag</a>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var DATA = {
+    senior_fiscalist: {
+      title: 'Senior Fiscalist',
+      tags: ['WO', '5-10 jaar ervaring', 'Bussum / Hilversum', 'Fulltime / Parttime'],
+      intro: 'Wij zoeken een ondernemende fiscalist met ruime ervaring die onze organisatie verder uitbouwt. Je bent vaktechnisch sterk, werkt graag samen en hebt een natuurlijke drive om cliënten goed te bedienen.',
+      sections: [
+        {
+          heading: 'Jouw rol',
+          type: 'text',
+          content: 'Als Senior Fiscalist werk je voor het MKB en DGA\'s. Je signaleert commerciële kansen, onderhoudt relaties met cliënten en draagt actief bij aan de vaktechnische ontwikkeling van het team.'
+        },
+        {
+          heading: 'Taken en verantwoordelijkheden',
+          type: 'list',
+          items: [
+            'Verantwoordelijk voor complexe fiscale vraagstukken',
+            'Alle aangiften: inkomstenbelasting, vennootschapsbelasting, omzetbelasting en dividendbelasting',
+            'Controlerende werkzaamheden op het werk van junior fiscalisten',
+            'Aansturen van een team van 3 fiscalisten',
+            'Behandelen van juridische vraagstukken',
+            'Signaleren van adviesbehoeften bij cliënten',
+            'Contact met cliënten, de Belastingdienst en andere partijen',
+            'Toepassen van Tax Technology'
+          ]
+        },
+        {
+          heading: 'Wat jij meebrengt',
+          type: 'list',
+          items: [
+            'Afgeronde WO-opleiding Fiscaal Recht of Fiscale Economie',
+            '5 tot 10 jaar relevante werkervaring',
+            'Analytisch ingesteld, teamspeler, hands-on',
+            'Ondernemersmentaliteit en commercieel inzicht',
+            'Gestructureerd en flexibel tegelijk'
+          ]
+        },
+        {
+          heading: 'Wat wij bieden',
+          type: 'list',
+          items: [
+            'Marktconform salaris',
+            'Auto en laptop van de zaak',
+            'Fulltime of parttime, 32 tot 40 uur per week',
+            'Onbeperkte opleidingsmogelijkheden',
+            'Kenniscentrum met geavanceerde automatisering op fiscaal gebied',
+            'Ruimte voor eigen inbreng en flexibele werktijden',
+            'Een professioneel team met veel ruimte voor zelfstandigheid'
+          ]
+        }
+      ]
+    },
+    junior_fiscalist: {
+      title: 'Junior Fiscalist',
+      tags: ['HBO / WO', 'Min. 3 jaar ervaring', 'Bussum / Hilversum', 'Fulltime / Parttime'],
+      intro: 'Heb je een afgeronde HBO- of WO-opleiding Fiscaal Recht of Fiscale Economie? Wil je groeien als adviseur en werken aan een diverse cliëntenportefeuille? Dan is deze functie iets voor jou.',
+      sections: [
+        {
+          heading: 'Over de functie',
+          type: 'text',
+          content: 'De diversiteit aan cliënten en de mate van zelfstandigheid geven je iedere dag nieuwe fiscale uitdagingen. Samen met je collega\'s bouw je je kennis op en leg je de basis voor verdere doorgroei richting Senior Fiscalist.'
+        },
+        {
+          heading: 'Taken en verantwoordelijkheden',
+          type: 'list',
+          items: [
+            'Opstellen van aangiften: inkomstenbelasting, vennootschapsbelasting, omzetbelasting en dividendbelasting',
+            'Ondersteunende werkzaamheden voor de Senior Fiscalist',
+            'Ondersteunen bij juridische vraagstukken',
+            'Signaleren van adviesbehoeften bij cliënten',
+            'Contact met cliënten, de Belastingdienst en andere partijen'
+          ]
+        },
+        {
+          heading: 'Wat jij meebrengt',
+          type: 'list',
+          items: [
+            'Afgeronde HBO- of WO-opleiding Fiscaal Recht of Fiscale Economie',
+            'Minimaal 3 jaar ervaring met belastingaangiften bij een administratiekantoor',
+            'Analytisch ingesteld, nauwkeurig en kwaliteitsgericht',
+            'Hands-on mentaliteit, gestructureerd maar flexibel',
+            'Affiniteit met Tax Technology'
+          ]
+        },
+        {
+          heading: 'Wat wij bieden',
+          type: 'list',
+          items: [
+            'Marktconform salaris',
+            'Auto en laptop van de zaak',
+            'Fulltime of parttime, 32 tot 40 uur per week',
+            'Onbeperkte opleidingsmogelijkheden',
+            'Kenniscentrum met geavanceerde automatisering op fiscaal gebied',
+            'Ruimte voor eigen inbreng en flexibele werktijden',
+            'Een professioneel team met veel ruimte voor zelfstandigheid'
+          ]
+        }
+      ]
+    },
+    assistent_accountant: {
+      title: 'Assistent Accountant',
+      tags: ['HBO', '2-5 jaar ervaring', 'Bussum / Hilversum', 'Fulltime / Parttime'],
+      intro: 'Je bent gedreven, wilt groeien en bent nog lang niet uitgeleerd. Je houdt van afwisseling, wilt continu worden uitgedaagd en bent toe aan de volgende stap in je loopbaan.',
+      sections: [
+        {
+          heading: 'Waar ga je werken',
+          type: 'text',
+          content: 'Wij werken voor een breed scala aan opdrachtgevers: van media en vastgoed tot evenementen en zorg. Dat geeft je de kans om in verschillende omgevingen ervaring op te doen op het gebied van accounting, finance en control.'
+        },
+        {
+          heading: 'Wat dit voor jou betekent',
+          type: 'text',
+          content: 'Werken bij VDP betekent dat je werkervaring opdoet in uiteenlopende branches, een groot netwerk opbouwt en jezelf in hoog tempo ontwikkelt. Wij bieden afwisseling en groeikansen, gecombineerd met de zekerheid van een vast team en een stabiele werkomgeving.'
+        },
+        {
+          heading: 'Wat jij meebrengt',
+          type: 'list',
+          items: [
+            'Een afgeronde HBO-opleiding, bij voorkeur Accountancy of Bedrijfseconomie',
+            '2 tot 5 jaar werkervaring, bij voorkeur binnen een klein of middelgroot administratiekantoor',
+            'Een groot aanpassingsvermogen en een oprechte wil om te leren en te groeien'
+          ]
+        },
+        {
+          heading: 'Wat wij bieden',
+          type: 'list',
+          items: [
+            'Onbeperkte opleidings- en cursusmogelijkheden',
+            'Een auto van de zaak die je ook privé mag gebruiken'
+          ]
+        }
+      ]
+    }
+  };
+
+  var overlay  = document.getElementById('vacModal');
+  var backdrop = document.getElementById('vacModalBackdrop');
+  var closeBtn = document.getElementById('vacModalClose');
+
+  function openModal(key) {
+    var d = DATA[key];
+    if (!d) return;
+
+    document.getElementById('vacModalTitle').textContent = d.title;
+    document.getElementById('vacModalIntro').textContent = d.intro;
+
+    var tagsEl = document.getElementById('vacModalTags');
+    tagsEl.innerHTML = '';
+    d.tags.forEach(function(t) {
+      var span = document.createElement('span');
+      span.className = 'vac-modal-tag';
+      span.textContent = t;
+      tagsEl.appendChild(span);
+    });
+
+    var sectionsEl = document.getElementById('vacModalSections');
+    sectionsEl.innerHTML = '';
+    d.sections.forEach(function(s) {
+      var sec = document.createElement('div');
+      sec.className = 'vac-modal-section';
+      var h = document.createElement('h3');
+      h.className = 'vac-modal-section-heading';
+      h.textContent = s.heading;
+      sec.appendChild(h);
+      if (s.type === 'text') {
+        var p = document.createElement('p');
+        p.textContent = s.content;
+        sec.appendChild(p);
+      } else {
+        var ul = document.createElement('ul');
+        ul.className = 'vac-modal-list';
+        s.items.forEach(function(item) {
+          var li = document.createElement('li');
+          li.textContent = item;
+          ul.appendChild(li);
+        });
+        sec.appendChild(ul);
+      }
+      sectionsEl.appendChild(sec);
+    });
+
+    overlay.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  }
+
+  function closeModal() {
+    overlay.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('[data-vac]').forEach(function(card) {
+    card.addEventListener('click', function() { openModal(card.dataset.vac); });
+    card.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(card.dataset.vac); }
+    });
+  });
+
+  closeBtn.addEventListener('click', closeModal);
+  backdrop.addEventListener('click', closeModal);
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+  });
+}());
+</script>
+</body>
+</html>

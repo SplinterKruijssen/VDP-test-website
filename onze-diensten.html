@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Onze Diensten — VDP Advies</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── Diensten page ── */
+    .services-intro {
+      background: var(--white);
+    }
+    .services-intro-inner {
+      max-width: 720px; margin: 0 auto; text-align: center;
+    }
+    .services-grid-section {
+      background: var(--gray-50);
+    }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    /* Bento: alternating wide cards */
+    .svc-card:nth-child(1),
+    .svc-card:nth-child(4),
+    .svc-card:nth-child(5) {
+      grid-column: span 2;
+    }
+
+    .svc-card {
+      background: var(--white);
+      border-radius: var(--r-lg);
+      padding: 22px 24px 20px;
+      box-shadow: var(--sh-card);
+      border: 1px solid var(--gray-100);
+      transition: transform 200ms ease-out, box-shadow 200ms ease-out, border-color 200ms ease;
+    }
+    .svc-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--sh-hover);
+      border-color: rgba(27,47,160,0.18);
+    }
+    .svc-icon {
+      width: 38px; height: 38px;
+      background: var(--blue-pale);
+      border-radius: var(--r-sm);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 14px;
+    }
+    .svc-icon svg {
+      width: 18px; height: 18px;
+      stroke: var(--blue-primary); fill: none;
+      stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .svc-title {
+      font-family: var(--font-d); font-size: 17px;
+      font-weight: 400; letter-spacing: -.015em;
+      color: var(--gray-800); margin-bottom: 7px;
+    }
+    .svc-desc {
+      font-size: 13px; line-height: 1.65;
+      color: var(--gray-500); margin-bottom: 14px;
+    }
+    .svc-link {
+      font-size: 12px; font-weight: 600;
+      color: var(--blue-primary); letter-spacing: .02em;
+      display: inline-flex; align-items: center; gap: 5px;
+      transition: gap 200ms ease;
+    }
+    .svc-card:hover .svc-link { gap: 8px; }
+
+    /* Specialist section */
+    .specialist { background: var(--blue-deep); color: var(--white); }
+    .specialist-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: var(--sp-2xl); align-items: center;
+    }
+    .specialist-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: var(--sp-lg); }
+    .specialist-list li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 15px; color: rgba(255,255,255,.65);
+    }
+    .specialist-list li::before {
+      content: '';
+      flex-shrink: 0; width: 6px; height: 6px;
+      background: var(--blue-light); border-radius: 50%;
+      margin-top: 9px;
+    }
+    .specialist-highlight {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: var(--r-lg);
+      padding: var(--sp-xl);
+    }
+    .sh-label {
+      font-size: 10px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: rgba(255,255,255,.3);
+      margin-bottom: var(--sp-sm);
+    }
+    .sh-heading {
+      font-family: var(--font-d); font-size: 24px; font-weight: 400;
+      line-height: 1.3; letter-spacing: -.02em; color: var(--white);
+      margin-bottom: var(--sp-md);
+    }
+    .sh-body {
+      font-size: 14px; line-height: 1.72; color: rgba(255,255,255,.55);
+      margin-bottom: var(--sp-lg);
+    }
+
+    /* Aanpak section */
+    .aanpak { background: var(--white); }
+    .aanpak-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: var(--sp-md); margin-top: var(--sp-xl);
+    }
+    .aanpak-item {
+      text-align: center; padding: var(--sp-lg) var(--sp-md);
+    }
+    .aanpak-num {
+      font-family: var(--font-d); font-size: 52px; font-weight: 300;
+      color: var(--blue-pale); letter-spacing: -.05em; line-height: 1;
+      margin-bottom: var(--sp-sm);
+    }
+    .aanpak-title {
+      font-family: var(--font-d); font-size: 18px; font-weight: 400;
+      letter-spacing: -.01em; color: var(--gray-800); margin-bottom: 8px;
+    }
+    .aanpak-body { font-size: 14px; line-height: 1.65; color: var(--gray-600); }
+
+    .cta-band {
+      background: var(--blue-primary); color: var(--white);
+      padding: var(--sp-xl) var(--sp-lg); text-align: center;
+    }
+    .cta-band h2 {
+      font-family: var(--font-d); font-size: clamp(22px, 2.8vw, 34px);
+      font-weight: 400; letter-spacing: -.025em; margin-bottom: var(--sp-md);
+    }
+    .cta-band p { font-size: 16px; opacity: .72; margin-bottom: var(--sp-lg); max-width: 520px; margin-left: auto; margin-right: auto; }
+    .cta-band-btns { display: flex; gap: var(--sp-sm); justify-content: center; flex-wrap: wrap; }
+
+    @media (max-width: 900px) {
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .svc-card:nth-child(1),
+      .svc-card:nth-child(4),
+      .svc-card:nth-child(5) { grid-column: span 1; }
+      .aanpak-grid { grid-template-columns: 1fr; }
+      .specialist-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .services-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Service modal ── */
+    .svc-link { cursor: pointer; background: none; border: none; padding: 0; }
+    .svc-modal-overlay {
+      position: fixed; inset: 0; z-index: 900;
+      display: flex; align-items: center; justify-content: center;
+      padding: var(--sp-lg);
+      opacity: 0; pointer-events: none;
+      transition: opacity 250ms ease;
+    }
+    .svc-modal-overlay.is-open {
+      opacity: 1; pointer-events: all;
+    }
+    .svc-modal-backdrop {
+      position: absolute; inset: 0;
+      background: rgba(5,13,56,.52);
+      backdrop-filter: blur(3px);
+    }
+    .svc-modal-panel {
+      position: relative; z-index: 1;
+      background: var(--white);
+      border-radius: var(--r-xl);
+      padding: var(--sp-xl);
+      max-width: 580px; width: 100%;
+      max-height: 90vh; overflow-y: auto;
+      box-shadow: var(--sh-elev), 0 0 80px rgba(27,47,160,.14);
+      transform: translateY(18px);
+      transition: transform 300ms cubic-bezier(.22,1,.36,1);
+    }
+    .svc-modal-overlay.is-open .svc-modal-panel {
+      transform: translateY(0);
+    }
+    .svc-modal-close {
+      position: absolute; top: 20px; right: 20px;
+      width: 36px; height: 36px;
+      background: var(--gray-50); border: none; border-radius: 50%;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 150ms ease;
+    }
+    .svc-modal-close:hover { background: var(--gray-100); }
+    .svc-modal-close svg {
+      width: 15px; height: 15px; stroke: var(--gray-600);
+      fill: none; stroke-width: 2; stroke-linecap: round;
+    }
+    .svc-modal-icon {
+      width: 52px; height: 52px;
+      background: var(--blue-pale); border-radius: var(--r-md);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: var(--sp-md);
+    }
+    .svc-modal-icon svg {
+      width: 26px; height: 26px;
+      stroke: var(--blue-primary); fill: none;
+      stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .svc-modal-label {
+      font-size: 11px; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--blue-light);
+      margin-bottom: var(--sp-sm);
+    }
+    .svc-modal-title {
+      font-family: var(--font-d); font-size: clamp(22px, 2.8vw, 28px);
+      font-weight: 400; letter-spacing: -.025em;
+      color: var(--gray-800); margin-bottom: var(--sp-md);
+      padding-right: var(--sp-xl);
+    }
+    .svc-modal-intro {
+      font-size: 15px; line-height: 1.78; color: var(--gray-600);
+      margin-bottom: var(--sp-lg);
+    }
+    .svc-modal-points {
+      list-style: none; margin-bottom: var(--sp-lg);
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .svc-modal-points li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 14px; line-height: 1.65; color: var(--gray-600);
+    }
+    .svc-modal-points li::before {
+      content: '';
+      flex-shrink: 0; width: 6px; height: 6px;
+      background: var(--blue-primary); border-radius: 50%;
+      margin-top: 8px;
+    }
+    .svc-modal-body {
+      font-size: 14px; line-height: 1.78; color: var(--gray-400);
+      border-top: 1px solid var(--gray-100);
+      padding-top: var(--sp-lg); margin-bottom: var(--sp-xl);
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html">
+      <img src="vdplogonew.png" alt="VDP Advies" class="nav-logo">
+    </a>
+    <ul class="nav-links">
+      <li><a href="over-vdp.html">Over VDP</a></li>
+      <li><a href="onze-diensten.html" class="active">Diensten</a></li>
+      <li><a href="vdp-model.html">Het VDP-model</a></li>
+      <li><a href="werken-bij.html">Werken bij</a></li>
+      <li><a href="contact.html" class="nav-cta">Plan een gesprek</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <p class="page-hero-label">Onze diensten</p>
+    <h1 class="page-hero-heading">
+      Voor elke ondernemer<br><em>de juiste aanpak</em>
+    </h1>
+    <p class="page-hero-sub">
+      Van dagelijkse administratie tot diepgaand belastingadvies — VDP Advies denkt altijd een stap verder mee.
+    </p>
+  </div>
+</div>
+
+<!-- INTRO -->
+<section class="section services-intro">
+  <div class="section-inner">
+    <div class="services-intro-inner">
+      <p class="section-label fos" style="text-align:center">Onze expertise</p>
+      <h2 class="section-heading fos" style="text-align:center">
+        Persoonlijk. Deskundig. <em>Vooruitdenkend.</em>
+      </h2>
+      <p class="fos" style="font-size:17px;line-height:1.78;color:var(--gray-600);text-align:center">
+        Wij bieden een brede dienstverlening voor ondernemers en particulieren. Niet standaard. Wij zoeken actief naar de beste aanpak voor uw specifieke situatie — van eenvoudige belastingaangifte tot complexe vermogens- en bedrijfsstructuren.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- DIENSTEN GRID -->
+<section class="section services-grid-section">
+  <div class="section-inner">
+    <div class="services-grid">
+      <div class="svc-card fos">
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>
+        </div>
+        <h3 class="svc-title">Belastingadvies</h3>
+        <p class="svc-desc">Fiscale kansen benutten en risico's beheersen. Wij kennen de regelgeving, volgen de ontwikkelingen en vertalen dit naar concrete voordelen voor uw situatie.</p>
+        <button class="svc-link" data-svc="belastingadvies">
+          Meer informatie
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+      <div class="svc-card fos" style="transition-delay:60ms">
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+        </div>
+        <h3 class="svc-title">Accountancy &amp; advisering</h3>
+        <p class="svc-desc">U bent druk met ondernemen. Wij zorgen voor overzicht, inzicht en continuïteit. Van jaarstukken tot strategisch advies — u weet altijd waar u staat.</p>
+        <button class="svc-link" data-svc="accountancy">
+          Meer informatie
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+      <div class="svc-card fos" style="transition-delay:120ms">
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <h3 class="svc-title">Estate planning</h3>
+        <p class="svc-desc">Vermogensoverdracht fiscaal zo voordelig mogelijk geregeld — nu en bij overlijden. Wij structureren uw vermogen met oog voor uw familie en de toekomst.</p>
+        <button class="svc-link" data-svc="estate">
+          Meer informatie
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+      <div class="svc-card fos">
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+        </div>
+        <h3 class="svc-title">Rijksmonumenten</h3>
+        <p class="svc-desc">Als eigenaar van een rijksmonument heeft u recht op bijzondere fiscale voordelen. Wij kennen de specifieke regelgeving en helpen u optimaal gebruik te maken van uw rechten.</p>
+        <button class="svc-link" data-svc="rijksmonumenten">
+          Meer informatie
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+      <div class="svc-card fos" style="transition-delay:60ms">
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        </div>
+        <h3 class="svc-title">Vrije beroepen &amp; medisch</h3>
+        <p class="svc-desc">Specialist op het gebied van vrije beroepen en medisch specialisten. Wij kennen de specifieke fiscale en administratieve uitdagingen van uw sector.</p>
+        <button class="svc-link" data-svc="vrijebroepen">
+          Meer informatie
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+      <div class="svc-card fos" style="transition-delay:120ms">
+        <div class="svc-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3 class="svc-title">Begeleiding echtscheiding</h3>
+        <p class="svc-desc">Financieel en fiscaal inzicht in een moeilijke periode — helder en betrokken. Wij helpen u overzicht te bewaren en de financiële gevolgen goed te regelen.</p>
+        <button class="svc-link" data-svc="echtscheiding">
+          Meer informatie
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SPECIALIST CALLOUT -->
+<section class="section specialist">
+  <div class="section-inner">
+    <div class="specialist-grid">
+      <div>
+        <p class="section-label fos" style="color:rgba(255,255,255,.35)">Specialisme</p>
+        <h2 class="section-heading fos" style="color:var(--white)">
+          Niet één aanpak<br>voor iedereen
+        </h2>
+        <p class="fos" style="font-size:16px;line-height:1.78;color:rgba(255,255,255,.55);margin-bottom:var(--sp-lg)">
+          Wij werken voor een gevarieerd cliëntenpakket: van MKB-ondernemers tot medisch specialisten, van rijksmonumentenbezitters tot particulieren in scheiding. Elk met eigen behoeften, elk met een aanpak op maat.
+        </p>
+        <ul class="specialist-list fos">
+          <li>MKB-ondernemers en directeur-grootaandeelhouders</li>
+          <li>Medisch specialisten en vrije beroepers</li>
+          <li>Eigenaren van rijksmonumenten</li>
+          <li>Particulieren met complexe vermogens</li>
+          <li>Ondernemers in scheiding</li>
+          <li>Starters en groeiende bedrijven</li>
+        </ul>
+      </div>
+      <div class="specialist-highlight fos">
+        <div class="sh-label">Onze aanpak</div>
+        <h3 class="sh-heading">Wij regelen uw administratie. Zodat u zich kunt richten op ondernemen.</h3>
+        <p class="sh-body">Geen standaardoplossingen, maar een aanpak die aansluit bij uw situatie. Wij kennen uw dossier, denken mee bij belangrijke beslissingen en staan u bij met kennis van zaken.</p>
+        <a href="contact.html" class="btn btn-light">
+          Bespreek uw situatie
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AANPAK -->
+<section class="section aanpak">
+  <div class="section-inner">
+    <p class="section-label fos" style="text-align:center">Hoe wij werken</p>
+    <h2 class="section-heading fos" style="text-align:center">
+      Duidelijk. Direct. <em>Deskundig.</em>
+    </h2>
+    <div class="aanpak-grid">
+      <div class="aanpak-item fos">
+        <div class="aanpak-num">01</div>
+        <h3 class="aanpak-title">Kennismaking</h3>
+        <p class="aanpak-body">Wij beginnen met een persoonlijk gesprek. We leren uw situatie kennen, bespreken uw doelen en stellen een duidelijke aanpak voor.</p>
+      </div>
+      <div class="aanpak-item fos" style="transition-delay:80ms">
+        <div class="aanpak-num">02</div>
+        <h3 class="aanpak-title">Analyse &amp; advies</h3>
+        <p class="aanpak-body">Op basis van uw situatie geven wij concreet advies. Helder, eerlijk en zonder jargon. U weet precies wat we doen en waarom.</p>
+      </div>
+      <div class="aanpak-item fos" style="transition-delay:160ms">
+        <div class="aanpak-num">03</div>
+        <h3 class="aanpak-title">Samen vooruit</h3>
+        <p class="aanpak-body">Een relatie voor de lange termijn. Wij blijven betrokken, informeren u proactief en denken mee als uw situatie verandert.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-band">
+  <h2>Nieuwsgierig naar onze aanpak?</h2>
+  <p>Plan een vrijblijvend kennismakingsgesprek. Wij denken graag met u mee.</p>
+  <div class="cta-band-btns">
+    <a href="contact.html" class="btn btn-light">Plan een gesprek</a>
+    <a href="over-vdp.html" class="btn btn-ghost-white">Over VDP</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-in">
+    <div class="footer-top">
+      <div>
+        <img src="vdplogonew.png" alt="VDP Advies" class="footer-logo">
+        <p class="footer-tagline">Vertrouwd in advies.<br>Modern in samenwerking.</p>
+      </div>
+      <div>
+        <p class="footer-col-title">VDP Advies</p>
+        <ul class="footer-col-links">
+          <li><a href="over-vdp.html">Over VDP</a></li>
+          <li><a href="onze-diensten.html">Onze diensten</a></li>
+          <li><a href="vdp-model.html">Het VDP-model</a></li>
+          <li><a href="werken-bij.html">Werken bij</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Diensten</p>
+        <ul class="footer-col-links">
+          <li><a href="onze-diensten.html">Belastingadvies</a></li>
+          <li><a href="onze-diensten.html">Accountancy</a></li>
+          <li><a href="onze-diensten.html">Estate planning</a></li>
+          <li><a href="onze-diensten.html">Rijksmonumenten</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Contact</p>
+        <ul class="footer-col-links">
+          <li><a href="contact.html">Bussum · 035-6956900</a></li>
+          <li><a href="contact.html">Hilversum · 035-6980414</a></li>
+          <li><a href="contact.html">Amsterdam · 035-6980414</a></li>
+          <li><a href="mailto:info@vdpadvies.nl">info@vdpadvies.nl</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2024 VDP Advies · Alle rechten voorbehouden</p>
+      <p class="footer-copy">Bussum · Hilversum · Amsterdam</p>
+    </div>
+  </div>
+</footer>
+
+<script src="shared.js" defer></script>
+
+<!-- Service detail modal -->
+<div class="svc-modal-overlay" id="svcModal" role="dialog" aria-modal="true" aria-labelledby="svcModalTitle">
+  <div class="svc-modal-backdrop" id="svcModalBackdrop"></div>
+  <div class="svc-modal-panel">
+    <button class="svc-modal-close" id="svcModalClose" aria-label="Sluiten">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="svc-modal-icon" id="svcModalIcon"></div>
+    <p class="svc-modal-label" id="svcModalLabel"></p>
+    <h2 class="svc-modal-title" id="svcModalTitle"></h2>
+    <p class="svc-modal-intro" id="svcModalIntro"></p>
+    <ul class="svc-modal-points" id="svcModalPoints"></ul>
+    <p class="svc-modal-body" id="svcModalBody"></p>
+    <a href="contact.html" class="btn btn-primary" id="svcModalCta"></a>
+  </div>
+</div>
+
+<script>
+(function () {
+  var ICONS = {
+    belastingadvies:  '<svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg>',
+    accountancy:      '<svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>',
+    estate:           '<svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>',
+    rijksmonumenten:  '<svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>',
+    vrijebroepen:     '<svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>',
+    echtscheiding:    '<svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>'
+  };
+
+  var DATA = {
+    belastingadvies: {
+      label: 'Belastingadvies',
+      intro: 'De Nederlandse belastingwetgeving is breed en verandert voortdurend. Wij volgen de ontwikkelingen op de voet en vertalen actuele kennis naar concrete voordelen voor uw situatie.',
+      points: [
+        'Aangiften inkomstenbelasting, vennootschapsbelasting, omzetbelasting en loonbelasting',
+        'Advies over keuze voor de juiste rechtsvorm en financieringsstructuur',
+        'Fiscale begeleiding bij fusies, overnames en herstructureringen',
+        'Bedrijfsopvolging en aandelenstructuren',
+        'Bezwaar en afstemming met de Belastingdienst',
+        'Begeleiding bij boekenonderzoeken'
+      ],
+      body: 'Of u nu een startende ondernemer bent of een gevestigde DGA, wij structureren uw zaken zo gunstig mogelijk. Binnen de grenzen van de wet, maar met alle ruimte die erin zit.',
+      cta: 'Bespreek uw fiscale situatie'
+    },
+    accountancy: {
+      label: 'Accountancy & advisering',
+      intro: 'Als ondernemer heeft u genoeg aan uw hoofd. Wij zorgen dat uw financiële administratie klopt en dat u altijd weet waar uw bedrijf staat.',
+      points: [
+        'Samenstellen van jaarrekeningen en tussentijdse cijfers',
+        'Inrichten en verwerken van administraties',
+        'Salarisadministratie en loonaangiften',
+        'Publicatiestukken voor de Kamer van Koophandel',
+        'Financieringsaanvragen en begrotingen',
+        'Periodieke omzetbelastingaangiften'
+      ],
+      body: 'Op basis van uw cijfers geven wij ook gevraagd en ongevraagd advies. Zo helpt uw administratie u sneller beslissingen te nemen.',
+      cta: 'Bespreek uw administratie'
+    },
+    estate: {
+      label: 'Estate planning',
+      intro: 'Wat gebeurt er met uw vermogen? Hoe regelt u de opvolging van uw bedrijf? Estate planning brengt de financiële gevolgen in kaart en geeft antwoord op die vragen.',
+      points: [
+        'Vermogensoverdracht bij leven en overlijden',
+        'Erfbelasting en schenkbelasting',
+        'Bedrijfsopvolging en aandelenstructuren',
+        'Beoordeling van testament, huwelijkse voorwaarden en samenlevingscontract',
+        'Aangifte erfbelasting en schenkbelasting'
+      ],
+      body: 'Een goed advies vraagt om maatwerk. Wij beginnen altijd met uw persoonlijke situatie en wensen als uitgangspunt.',
+      cta: 'Bespreek uw vermogenssituatie'
+    },
+    rijksmonumenten: {
+      label: 'Rijksmonumenten',
+      intro: 'Het bezit van een rijksmonument brengt bijzondere verantwoordelijkheden met zich mee, maar ook kansen. Onderhoud, restauratie en financiering kennen hun eigen fiscale en praktische regels.',
+      points: [
+        'Fiscale aspecten van onderhoud en restauratie',
+        'Subsidiemogelijkheden en financiering',
+        'Vergunningen en relevante regelgeving',
+        'Waardering en overdracht van het monument'
+      ],
+      body: 'VDP Advies heeft ervaring met de specifieke materie rondom rijksmonumenten en helpt u uw rechten en mogelijkheden goed te benutten.',
+      cta: 'Stel uw vraag'
+    },
+    vrijebroepen: {
+      label: 'Vrije beroepen & medisch',
+      intro: 'Vrijeberoepsbeoefenaars en medisch specialisten hebben te maken met een specifiek fiscaal en administratief landschap. Wij kennen dat landschap goed.',
+      points: [
+        'Kwalificatie als ondernemer en beoordeling van uw situatie',
+        'Fiscale optimalisatie voor vrije beroepen en medisch specialisten',
+        'Gebruikmaken van aftrekposten die specifiek voor uw doelgroep gelden',
+        'Beoordeling en keuze van de ondernemingsvorm',
+        'Administratieve begeleiding en aangiften'
+      ],
+      body: 'Of u nu net begint of al jaren actief bent, wij helpen u een fiscaal optimale positie te bepalen en te behouden.',
+      cta: 'Bespreek uw situatie'
+    },
+    echtscheiding: {
+      label: 'Begeleiding echtscheiding',
+      intro: 'Een echtscheiding brengt vaak complexe fiscale en financiële vragen met zich mee. Wij helpen u overzicht te houden en de gevolgen zo goed mogelijk te regelen.',
+      points: [
+        'Fiscale gevolgen voor de onderneming en bedrijfswaardering',
+        'Eigen woning en hypotheekrenteaftrek na scheiding',
+        'Alimentatie: fiscale vastlegging en consequenties',
+        'Pensioen en vermogensverdeling',
+        'Beoordeling van het echtscheidingsconvenant'
+      ],
+      body: 'Door onze brede kennis van zowel belasting als ondernemingsadvies kunnen wij u op meerdere fronten begeleiden in een moeilijke periode.',
+      cta: 'Bespreek uw situatie'
+    }
+  };
+
+  var overlay  = document.getElementById('svcModal');
+  var backdrop = document.getElementById('svcModalBackdrop');
+  var closeBtn = document.getElementById('svcModalClose');
+
+  function openModal(key) {
+    var d = DATA[key];
+    if (!d) return;
+    document.getElementById('svcModalIcon').innerHTML  = ICONS[key] || '';
+    document.getElementById('svcModalLabel').textContent = d.label;
+    document.getElementById('svcModalTitle').textContent = d.label;
+    document.getElementById('svcModalIntro').textContent = d.intro;
+    document.getElementById('svcModalBody').textContent  = d.body;
+    document.getElementById('svcModalCta').textContent   = d.cta + ' →';
+    var ul = document.getElementById('svcModalPoints');
+    ul.innerHTML = '';
+    d.points.forEach(function(p) {
+      var li = document.createElement('li');
+      li.textContent = p;
+      ul.appendChild(li);
+    });
+    overlay.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    closeBtn.focus();
+  }
+
+  function closeModal() {
+    overlay.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+
+  document.querySelectorAll('[data-svc]').forEach(function(btn) {
+    btn.addEventListener('click', function() { openModal(btn.dataset.svc); });
+  });
+
+  closeBtn.addEventListener('click', closeModal);
+  backdrop.addEventListener('click', closeModal);
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+  });
+}());
+</script>
+</body>
+</html>

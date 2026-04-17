@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Het VDP-model — VDP Advies</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── VDP Model page ── */
+
+    /* Intro split */
+    .model-intro-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: var(--sp-2xl); align-items: center;
+    }
+    .model-quote {
+      font-family: var(--font-d);
+      font-size: clamp(20px, 2.2vw, 28px);
+      font-weight: 300; font-style: italic;
+      line-height: 1.45; letter-spacing: -.02em;
+      color: var(--blue-primary);
+      border-left: 3px solid var(--blue-primary);
+      padding-left: var(--sp-lg);
+      margin-bottom: var(--sp-xl);
+    }
+
+    /* Three steps */
+    .steps-section { background: var(--blue-deep); color: var(--white); }
+    .steps-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,.08);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      margin-top: var(--sp-xl);
+    }
+    .step-card {
+      background: rgba(255,255,255,.04);
+      padding: var(--sp-xl) var(--sp-lg);
+      transition: background 200ms ease;
+    }
+    .step-card:hover { background: rgba(255,255,255,.08); }
+    .step-num {
+      font-family: var(--font-d); font-size: 56px;
+      font-weight: 300; letter-spacing: -.05em; line-height: 1;
+      color: rgba(255,255,255,.1);
+      margin-bottom: var(--sp-md);
+    }
+    .step-title {
+      font-family: var(--font-d); font-size: 24px;
+      font-weight: 400; letter-spacing: -.02em;
+      color: var(--white); margin-bottom: var(--sp-sm);
+    }
+    .step-body {
+      font-size: 15px; line-height: 1.72;
+      color: rgba(255,255,255,.52);
+    }
+    .step-icon {
+      width: 44px; height: 44px;
+      background: var(--blue-primary);
+      border-radius: var(--r-sm);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: var(--sp-lg);
+    }
+    .step-icon svg {
+      width: 22px; height: 22px;
+      stroke: var(--white); fill: none;
+      stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    /* Benefits section */
+    .benefits-section { background: var(--white); }
+    .benefits-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: var(--sp-2xl); align-items: start;
+    }
+    .benefit-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
+    .benefit-item {
+      display: flex; align-items: flex-start; gap: var(--sp-md);
+      padding: var(--sp-md) 0;
+      border-bottom: 1px solid var(--gray-100);
+      transition: background 200ms ease;
+    }
+    .benefit-item:first-child { padding-top: 0; }
+    .benefit-num {
+      font-family: var(--font-d); font-size: 13px;
+      color: var(--gray-400); min-width: 28px;
+      margin-top: 3px;
+    }
+    .benefit-text h4 {
+      font-family: var(--font-d); font-size: 17px;
+      font-weight: 400; letter-spacing: -.01em;
+      color: var(--gray-800); margin-bottom: 4px;
+    }
+    .benefit-text p { font-size: 14px; line-height: 1.65; color: var(--gray-600); }
+
+    .model-cta-box {
+      background: var(--blue-primary);
+      border-radius: var(--r-xl); padding: var(--sp-xl);
+      color: var(--white); position: sticky; top: 96px;
+    }
+    .mcta-label {
+      font-size: 10px; font-weight: 700; letter-spacing: .14em;
+      text-transform: uppercase; color: rgba(255,255,255,.38);
+      margin-bottom: var(--sp-sm);
+    }
+    .mcta-heading {
+      font-family: var(--font-d); font-size: 24px;
+      font-weight: 400; letter-spacing: -.02em;
+      line-height: 1.3; margin-bottom: var(--sp-md);
+    }
+    .mcta-body {
+      font-size: 14px; line-height: 1.72;
+      color: rgba(255,255,255,.62); margin-bottom: var(--sp-lg);
+    }
+    .mcta-btns { display: flex; flex-direction: column; gap: 10px; }
+
+    /* Foundation */
+    .foundation { background: var(--gray-50); }
+    .principles-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: var(--sp-md); margin-top: var(--sp-xl);
+    }
+    .principle-item {
+      background: var(--white);
+      border-radius: var(--r-md);
+      padding: var(--sp-lg) var(--sp-md);
+      box-shadow: var(--sh-card);
+      display: flex; align-items: flex-start; gap: var(--sp-md);
+    }
+    .principle-check {
+      width: 28px; height: 28px; flex-shrink: 0;
+      background: var(--blue-pale); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 2px;
+    }
+    .principle-check svg {
+      width: 14px; height: 14px;
+      stroke: var(--blue-primary); fill: none;
+      stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .principle-item p { font-size: 15px; line-height: 1.6; color: var(--gray-700, #3a4060); }
+
+    /* For who section */
+    .for-who { background: var(--blue-navy); color: var(--white); }
+    .for-who-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: var(--sp-2xl); align-items: center;
+    }
+    .for-who-quote {
+      font-family: var(--font-d);
+      font-size: clamp(18px, 2vw, 24px);
+      font-weight: 300; font-style: italic;
+      line-height: 1.5; color: rgba(255,255,255,.85);
+      margin-bottom: var(--sp-md);
+    }
+    .for-who-source { font-size: 13px; color: rgba(255,255,255,.38); }
+    .criteria-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .criteria-list li {
+      display: flex; align-items: flex-start; gap: 12px;
+      font-size: 15px; color: rgba(255,255,255,.68);
+      line-height: 1.55;
+    }
+    .criteria-list li::before {
+      content: '';
+      flex-shrink: 0; width: 6px; height: 6px;
+      background: var(--blue-light); border-radius: 50%;
+      margin-top: 9px;
+    }
+
+    /* ── Network canvas visual ── */
+    .model-visual-wrap { width: 100%; }
+    .vdp-net-canvas {
+      display: block;
+      width: 100%;
+      max-width: 460px;
+      aspect-ratio: 1;
+      margin: 0 auto;
+    }
+
+    @media (max-width: 900px) {
+      .model-intro-grid, .benefits-inner,
+      .for-who-inner { grid-template-columns: 1fr; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .principles-grid { grid-template-columns: 1fr; }
+      .model-cta-box { position: static; }
+      .vdp-net-canvas { max-width: 320px; }
+    }
+    @media (max-width: 600px) {
+      .step-num { font-size: 40px; }
+      .vdp-net-canvas { max-width: 280px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html">
+      <img src="vdplogonew.png" alt="VDP Advies" class="nav-logo">
+    </a>
+    <ul class="nav-links">
+      <li><a href="over-vdp.html">Over VDP</a></li>
+      <li><a href="onze-diensten.html">Diensten</a></li>
+      <li><a href="vdp-model.html" class="active">Het VDP-model</a></li>
+      <li><a href="werken-bij.html">Werken bij</a></li>
+      <li><a href="contact.html" class="nav-cta">Plan een gesprek</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <p class="page-hero-label">Voor administratiekantoren</p>
+    <h1 class="page-hero-heading">
+      Het VDP-model
+    </h1>
+    <p class="page-hero-sub">
+      Voor kantoren die willen groeien zonder te verliezen wat hen sterk maakt.
+    </p>
+  </div>
+</div>
+
+<!-- INTRO -->
+<section class="section" style="background:var(--white)">
+  <div class="section-inner">
+    <div class="model-intro-grid">
+      <div>
+        <p class="section-label fos">Wat is het VDP-model?</p>
+        <h2 class="section-heading fos">
+          Aansluiten betekent niet opgeven.<br>Het betekent <em>versterken.</em>
+        </h2>
+        <p class="fos" style="font-size:17px;line-height:1.78;color:var(--gray-600);margin-bottom:var(--sp-lg)">
+          U behoudt uw naam, uw cliënten en uw manier van werken. VDP biedt de ruggengraat: ondersteuning, kennis, tooling en zekerheid voor de lange termijn.
+        </p>
+        <p class="fos" style="font-size:16px;line-height:1.78;color:var(--gray-600);margin-bottom:var(--sp-xl)">
+          Het VDP-model is geen overname. Het is een partnerschap. U blijft ondernemer, u houdt de regie, en u profiteert van schaal en expertise zonder uw eigenheid te verliezen.
+        </p>
+        <a href="contact.html" class="btn btn-primary fos">
+          Bespreek de mogelijkheden
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+      <div class="model-visual-wrap fos">
+        <canvas id="vdpNetCanvas" class="vdp-net-canvas" aria-hidden="true"></canvas>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-md);margin-top:var(--sp-md)">
+          <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Eigen identiteit behouden</div></div>
+          <div class="stat"><div class="stat-n">Groei</div><div class="stat-l">Zonder verlies van eigenheid</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THREE STEPS -->
+<section class="section steps-section section-dark">
+  <div class="section-inner">
+    <p class="section-label fos">Het proces</p>
+    <h2 class="section-heading fos">Drie stappen. Één richting.</h2>
+    <div class="steps-grid">
+      <div class="step-card fos">
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <div class="step-num">01</div>
+        <h3 class="step-title">Samenwerken</h3>
+        <p class="step-body">U behoudt uw identiteit en ondernemerschap volledig. VDP ondersteunt op de achtergrond — op het moment dat u er behoefte aan heeft. Geen opgelegde aanpak. Wel een sterke basis.</p>
+      </div>
+      <div class="step-card fos" style="transition-delay:80ms">
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+        </div>
+        <div class="step-num">02</div>
+        <h3 class="step-title">Groeien</h3>
+        <p class="step-body">Door centrale ondersteuning vergroot u uw slagkracht op HR, recruitment, kennisdeling, automatisering en vaktechnische ontwikkeling. U kunt doen waar u goed in bent — beter, en met minder ruis.</p>
+      </div>
+      <div class="step-card fos" style="transition-delay:160ms">
+        <div class="step-icon">
+          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="step-num">03</div>
+        <h3 class="step-title">Zekerheid voor later</h3>
+        <p class="step-body">U bouwt aan iets dat blijft. Voor uw cliënten, uw medewerkers en uzelf. Het VDP-model biedt een heldere, transparante basis voor continuïteit en overdracht — op uw eigen tempo en voorwaarden.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="section benefits-section">
+  <div class="section-inner">
+    <div class="benefits-inner">
+      <div>
+        <p class="section-label fos">Wat u krijgt</p>
+        <h2 class="section-heading fos">
+          Alles wat uw kantoor<br>sterker maakt
+        </h2>
+        <ul class="benefit-list">
+          <li class="benefit-item fos">
+            <span class="benefit-num">01</span>
+            <div class="benefit-text">
+              <h4>Eigen naam &amp; identiteit</h4>
+              <p>Uw kantoor blijft herkenbaar. Uw naam, uw cultuur, uw manier van werken — dat blijft volledig van u.</p>
+            </div>
+          </li>
+          <li class="benefit-item fos" style="transition-delay:60ms">
+            <span class="benefit-num">02</span>
+            <div class="benefit-text">
+              <h4>Centrale HR &amp; recruitment</h4>
+              <p>Vind en bind talent met de ondersteuning van een professioneel HR-team. VDP regelt de achterkant, u focust op uw team.</p>
+            </div>
+          </li>
+          <li class="benefit-item fos" style="transition-delay:120ms">
+            <span class="benefit-num">03</span>
+            <div class="benefit-text">
+              <h4>Kennisdeling &amp; academy</h4>
+              <p>Toegang tot een netwerk van collega-kantoren, vaktechnische kennisdeling en een groeiend aanbod vanuit de VDP Academy.</p>
+            </div>
+          </li>
+          <li class="benefit-item fos" style="transition-delay:180ms">
+            <span class="benefit-num">04</span>
+            <div class="benefit-text">
+              <h4>Automatisering &amp; tooling</h4>
+              <p>Schaalvoordelen in software en processen. Efficiënter werken met tools die aansluiten bij uw praktijk.</p>
+            </div>
+          </li>
+          <li class="benefit-item fos" style="transition-delay:240ms">
+            <span class="benefit-num">05</span>
+            <div class="benefit-text">
+              <h4>Zekerheid voor continuïteit</h4>
+              <p>Een duurzame toekomst voor uw kantoor, uw cliënten en uw medewerkers. Op uw eigen tempo en voorwaarden.</p>
+            </div>
+          </li>
+          <li class="benefit-item fos" style="transition-delay:300ms">
+            <span class="benefit-num">06</span>
+            <div class="benefit-text">
+              <h4>Schaalvoordelen zonder uw eigenheid</h4>
+              <p>Groter worden zonder groot te worden. U geniet van schaalvoordelen terwijl u de voordelen van een persoonlijk kantoor behoudt.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <div class="model-cta-box fos">
+          <div class="mcta-label">Interesse?</div>
+          <h3 class="mcta-heading">Kennismaken met het VDP-model</h3>
+          <p class="mcta-body">Wij bespreken graag hoe het VDP-model past bij uw situatie — zonder verplichtingen en volledig op uw eigen voorwaarden.</p>
+          <div class="mcta-btns">
+            <a href="contact.html" class="btn btn-light">
+              Plan een gesprek
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+            <a href="contact.html" class="btn btn-ghost-white">Ik ben geïnteresseerd</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDATION -->
+<section class="section foundation">
+  <div class="section-inner">
+    <p class="section-label fos">De basis</p>
+    <h2 class="section-heading fos">
+      Vertrouwen en transparantie<br>als <em>vertrekpunt</em>
+    </h2>
+    <p class="section-sub fos">
+      Een partnerschap werkt alleen als de basis klopt. Dit zijn de principes die onze samenwerking dragen.
+    </p>
+    <div class="principles-grid">
+      <div class="principle-item fos">
+        <div class="principle-check">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <p>Vertrouwen en transparantie als vertrekpunt</p>
+      </div>
+      <div class="principle-item fos" style="transition-delay:60ms">
+        <div class="principle-check">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <p>Duidelijke afspraken — zeggen wat je doet, doen wat je zegt</p>
+      </div>
+      <div class="principle-item fos" style="transition-delay:120ms">
+        <div class="principle-check">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <p>Professioneel gelijkwaardig partnerschap</p>
+      </div>
+      <div class="principle-item fos" style="transition-delay:180ms">
+        <div class="principle-check">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <p>Identiteit en eigenheid volledig behouden</p>
+      </div>
+      <div class="principle-item fos" style="transition-delay:240ms">
+        <div class="principle-check">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <p>Openheid voor ontwikkeling en groei</p>
+      </div>
+      <div class="principle-item fos" style="transition-delay:300ms">
+        <div class="principle-check">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <p>Ondersteuning op maat — niet opgelegd, maar gekozen</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOR WHO -->
+<section class="section for-who">
+  <div class="section-inner">
+    <div class="for-who-inner">
+      <div>
+        <p class="section-label fos" style="color:rgba(255,255,255,.35)">Is dit iets voor u?</p>
+        <h2 class="section-heading fos" style="color:var(--white)">
+          Het VDP-model is bedoeld voor kantoren die<em style="color:rgba(255,255,255,.6)"> willen doorgroeien</em>
+        </h2>
+        <ul class="criteria-list fos">
+          <li>Zelfstandige administratie- of advieskantoren</li>
+          <li>Ondernemers die willen groeien maar hun eigenheid willen bewaren</li>
+          <li>Kantoren die HR en recruitment willen professionaliseren</li>
+          <li>Eigenaren die nadenken over de toekomst van hun kantoor</li>
+          <li>Teams die samen sterker willen staan</li>
+        </ul>
+      </div>
+      <div>
+
+        <div style="margin-top:var(--sp-xl)" class="fos">
+          <a href="contact.html" class="btn btn-light">
+            Kennismaken
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-in">
+    <div class="footer-top">
+      <div>
+        <img src="vdplogonew.png" alt="VDP Advies" class="footer-logo">
+        <p class="footer-tagline">Vertrouwd in advies.<br>Modern in samenwerking.</p>
+      </div>
+      <div>
+        <p class="footer-col-title">VDP Advies</p>
+        <ul class="footer-col-links">
+          <li><a href="over-vdp.html">Over VDP</a></li>
+          <li><a href="onze-diensten.html">Onze diensten</a></li>
+          <li><a href="vdp-model.html">Het VDP-model</a></li>
+          <li><a href="werken-bij.html">Werken bij</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Diensten</p>
+        <ul class="footer-col-links">
+          <li><a href="onze-diensten.html">Belastingadvies</a></li>
+          <li><a href="onze-diensten.html">Accountancy</a></li>
+          <li><a href="onze-diensten.html">Estate planning</a></li>
+          <li><a href="onze-diensten.html">Rijksmonumenten</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Contact</p>
+        <ul class="footer-col-links">
+          <li><a href="contact.html">Bussum · 035-6956900</a></li>
+          <li><a href="contact.html">Hilversum · 035-6980414</a></li>
+          <li><a href="contact.html">Amsterdam · 035-6980414</a></li>
+          <li><a href="mailto:info@vdpadvies.nl">info@vdpadvies.nl</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2024 VDP Advies · Alle rechten voorbehouden</p>
+      <p class="footer-copy">Bussum · Hilversum · Amsterdam</p>
+    </div>
+  </div>
+</footer>
+
+<script src="shared.js" defer></script>
+<script>
+(function () {
+  var canvas = document.getElementById('vdpNetCanvas');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var W = 0, H = 0, raf = null;
+  var rotY = 0.2, time = 0;
+  var SPEED = 0.0022;   // very calm rotation
+  var TILT  = 0.22;     // fixed X tilt for depth perception
+  var FOV   = 520;
+
+  function resize() {
+    var dpr = window.devicePixelRatio || 1;
+    W = canvas.offsetWidth  || 440;
+    H = canvas.offsetHeight || W;
+    canvas.width  = Math.round(W * dpr);
+    canvas.height = Math.round(H * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  // 3-D rotation helpers
+  function rxp(p, a) {
+    var c = Math.cos(a), s = Math.sin(a);
+    return [p[0], p[1]*c - p[2]*s, p[1]*s + p[2]*c];
+  }
+  function ryp(p, a) {
+    var c = Math.cos(a), s = Math.sin(a);
+    return [p[0]*c + p[2]*s, p[1], -p[0]*s + p[2]*c];
+  }
+  function prj(p, cx, cy) {
+    var sc = FOV / (FOV + p[2]);
+    return [p[0]*sc + cx, p[1]*sc + cy, p[2]];
+  }
+  function xfm(x, y, z) {
+    return ryp(rxp([x, y, z], TILT), rotY);
+  }
+
+  // Two orbital rings — each holds 3 nodes
+  // inc: ring inclination (tilt from equatorial plane)
+  // r:   ring radius as a multiple of the base sphere radius
+  var RINGS = [
+    { inc: 0.30, r: 1.00, nodes: [
+      { a: 0.00,  sz: 9, hub: true  },
+      { a: 2.094, sz: 9, hub: true  },
+      { a: 4.189, sz: 8, hub: false }
+    ]},
+    { inc: 1.15, r: 1.10, nodes: [
+      { a: 1.047, sz: 7, hub: true  },
+      { a: 3.142, sz: 7, hub: false },
+      { a: 5.236, sz: 7, hub: false }
+    ]}
+  ];
+
+  // Peer-to-peer connections: [ringA, nodeA, ringB, nodeB]
+  var PEERS = [
+    [0, 0, 0, 1],
+    [0, 1, 1, 0],
+    [0, 2, 1, 2]
+  ];
+
+  function ringPt(ring, angle, R) {
+    return [
+      R * Math.cos(angle),
+      R * Math.sin(angle) * Math.sin(ring.inc),
+      R * Math.sin(angle) * Math.cos(ring.inc)
+    ];
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    var cx = W / 2, cy = H / 2;
+    var R  = Math.min(W, H) * 0.38;
+
+    rotY += SPEED;
+    time += 0.010;
+
+    // Orbital ring lines
+    var STEPS = 80;
+    RINGS.forEach(function (ring, ri) {
+      ctx.beginPath();
+      for (var i = 0; i <= STEPS; i++) {
+        var ang = (i / STEPS) * Math.PI * 2;
+        var pt  = ringPt(ring, ang, R * ring.r);
+        var t   = xfm(pt[0], pt[1], pt[2]);
+        var pr  = prj(t, cx, cy);
+        if (i === 0) ctx.moveTo(pr[0], pr[1]);
+        else         ctx.lineTo(pr[0], pr[1]);
+      }
+      ctx.strokeStyle = ri === 0 ? 'rgba(27,47,160,0.14)' : 'rgba(27,47,160,0.09)';
+      ctx.lineWidth = 0.75;
+      ctx.stroke();
+    });
+
+    // Compute node screen positions + depth fade
+    var allNodes = [];
+    RINGS.forEach(function (ring, ri) {
+      ring.nodes.forEach(function (nd, ni) {
+        var pt   = ringPt(ring, nd.a, R * ring.r);
+        var t    = xfm(pt[0], pt[1], pt[2]);
+        var pr   = prj(t, cx, cy);
+        var fade = Math.max(0.12, Math.min(1.0, 0.5 - pr[2] / (R * 2)));
+        allNodes.push({ sx: pr[0], sy: pr[1], z: pr[2], fade: fade, nd: nd, ri: ri, ni: ni });
+      });
+    });
+
+    // Hub-to-node connections with traveling dots
+    allNodes.forEach(function (n) {
+      if (!n.nd.hub) return;
+      var alpha = Math.min(0.40, n.fade * 0.50);
+      var dx = n.sx - cx, dy = n.sy - cy;
+      var dist = Math.sqrt(dx * dx + dy * dy) || 1;
+      // Slight perpendicular offset for a gentle curve
+      var cpx = (cx + n.sx) / 2 - (dy / dist) * dist * 0.14;
+      var cpy = (cy + n.sy) / 2 + (dx / dist) * dist * 0.14;
+
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.quadraticCurveTo(cpx, cpy, n.sx, n.sy);
+      ctx.strokeStyle = 'rgba(27,47,160,' + alpha.toFixed(2) + ')';
+      ctx.lineWidth = 1.0;
+      ctx.stroke();
+
+      // Traveling dot — only when node faces camera
+      if (n.fade > 0.30) {
+        var t2 = ((time * 0.52 + n.nd.a * 0.12) % 1.0);
+        var tx = (1-t2)*(1-t2)*cx + 2*(1-t2)*t2*cpx + t2*t2*n.sx;
+        var ty = (1-t2)*(1-t2)*cy + 2*(1-t2)*t2*cpy + t2*t2*n.sy;
+        ctx.beginPath();
+        ctx.arc(tx, ty, 1.8, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(27,47,160,' + Math.min(0.75, n.fade * 0.85).toFixed(2) + ')';
+        ctx.fill();
+      }
+    });
+
+    // Peer connections (faint)
+    PEERS.forEach(function (p) {
+      var a = null, b = null;
+      allNodes.forEach(function (n) {
+        if (n.ri === p[0] && n.ni === p[1]) a = n;
+        if (n.ri === p[2] && n.ni === p[3]) b = n;
+      });
+      if (!a || !b) return;
+      var alpha = Math.min(0.18, Math.min(a.fade, b.fade) * 0.22);
+      ctx.beginPath();
+      ctx.moveTo(a.sx, a.sy);
+      ctx.lineTo(b.sx, b.sy);
+      ctx.strokeStyle = 'rgba(27,47,160,' + alpha.toFixed(2) + ')';
+      ctx.lineWidth = 0.65;
+      ctx.stroke();
+    });
+
+    // Partner nodes — sorted back-to-front
+    var sorted = allNodes.slice().sort(function (a, b) { return b.z - a.z; });
+    sorted.forEach(function (n) {
+      var nr = n.nd.sz * (0.60 + n.fade * 0.50) * (R / 160);
+      var al = Math.max(0.15, n.fade);
+
+      // Outer halo
+      ctx.beginPath();
+      ctx.arc(n.sx, n.sy, nr + 3.5, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(27,47,160,' + (al * 0.22).toFixed(2) + ')';
+      ctx.lineWidth = 0.8;
+      ctx.stroke();
+
+      // Node fill
+      ctx.beginPath();
+      ctx.arc(n.sx, n.sy, nr, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(27,47,160,' + al.toFixed(2) + ')';
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(255,255,255,' + (al * 0.55).toFixed(2) + ')';
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      // White core dot
+      ctx.beginPath();
+      ctx.arc(n.sx, n.sy, nr * 0.30, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,255,255,' + (al * 0.85).toFixed(2) + ')';
+      ctx.fill();
+    });
+
+    // VDP hub — always on top
+    var HR = 22 * (R / 160);
+
+    // Hub glow
+    var hg = ctx.createRadialGradient(cx, cy, 0, cx, cy, HR * 2.4);
+    hg.addColorStop(0, 'rgba(27,47,160,0.32)');
+    hg.addColorStop(1, 'rgba(27,47,160,0.00)');
+    ctx.fillStyle = hg;
+    ctx.beginPath();
+    ctx.arc(cx, cy, HR * 2.4, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Outer ring
+    ctx.beginPath();
+    ctx.arc(cx, cy, HR + 6, 0, Math.PI * 2);
+    ctx.strokeStyle = 'rgba(100,145,255,0.26)';
+    ctx.lineWidth = 1.2;
+    ctx.stroke();
+
+    // Hub body
+    ctx.beginPath();
+    ctx.arc(cx, cy, HR, 0, Math.PI * 2);
+    ctx.fillStyle = '#1B2FA0';
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(165,195,255,0.22)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    // VDP label
+    var fs = Math.max(9, Math.round(10 * R / 160));
+    ctx.font = '700 ' + fs + 'px Inter, system-ui, sans-serif';
+    ctx.fillStyle = 'rgba(255,255,255,0.92)';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('VDP', cx, cy);
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'alphabetic';
+
+    raf = requestAnimationFrame(draw);
+  }
+
+  // Start / stop based on visibility
+  var io = new IntersectionObserver(function (entries) {
+    if (entries[0].isIntersecting) {
+      if (!raf) { resize(); raf = requestAnimationFrame(draw); }
+    } else {
+      if (raf) { cancelAnimationFrame(raf); raf = null; }
+    }
+  }, { threshold: 0.05 });
+  io.observe(canvas);
+
+  window.addEventListener('resize', resize);
+
+  // Initial start
+  resize();
+  raf = requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>

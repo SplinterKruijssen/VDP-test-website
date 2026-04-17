@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Over VDP Advies — Vertrouwd in advies. Modern in samenwerking.</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── Over VDP page styles ── */
+    .who-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: var(--sp-2xl); align-items: center;
+      margin-bottom: var(--sp-2xl);
+    }
+    .who-img {
+      border-radius: var(--r-lg); overflow: hidden; position: relative;
+    }
+    .who-img img { width: 100%; height: 480px; object-fit: cover; }
+    .who-img::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(27,47,160,.18) 0%, transparent 55%);
+    }
+
+    .values-row {
+      background: var(--blue-navy); color: var(--white);
+      padding: var(--sp-2xl) var(--sp-lg);
+    }
+    .values-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: var(--sp-md); margin-top: var(--sp-xl);
+    }
+    .val-item {
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.09);
+      border-radius: var(--r-md);
+      padding: var(--sp-lg) var(--sp-md);
+      transition: background 200ms ease, transform 200ms ease-out;
+    }
+    .val-item:hover { background: rgba(255,255,255,.09); transform: translateY(-3px); }
+    .val-num {
+      font-family: var(--font-d); font-size: 13px; font-weight: 300;
+      opacity: .25; letter-spacing: .05em; margin-bottom: var(--sp-sm);
+    }
+    .val-title {
+      font-family: var(--font-d); font-size: 20px; font-weight: 400;
+      color: var(--white); margin-bottom: 10px; letter-spacing: -.015em;
+    }
+    .val-body { font-size: 14px; line-height: 1.65; color: rgba(255,255,255,.5); }
+
+    .stats-banner {
+      background: var(--blue-primary); color: var(--white);
+      padding: var(--sp-xl) var(--sp-lg);
+    }
+    .stats-banner-inner {
+      max-width: 1200px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: var(--sp-lg);
+    }
+    .banner-stat { text-align: center; }
+    .banner-stat-n {
+      font-family: var(--font-d); font-size: 44px;
+      font-weight: 300; letter-spacing: -.04em; line-height: 1;
+      margin-bottom: 8px;
+    }
+    .banner-stat-l { font-size: 13px; opacity: .65; letter-spacing: .02em; }
+
+    .intro-section { background: var(--white); }
+    .intro-inner {
+      max-width: 800px; margin: 0 auto; text-align: center;
+    }
+
+    .cta-band {
+      background: var(--blue-deep); color: var(--white);
+      padding: var(--sp-xl) var(--sp-lg); text-align: center;
+    }
+    .cta-band h2 {
+      font-family: var(--font-d); font-size: clamp(24px, 3vw, 36px);
+      font-weight: 400; letter-spacing: -.025em; margin-bottom: var(--sp-md);
+    }
+    .cta-band p { font-size: 16px; opacity: .6; margin-bottom: var(--sp-lg); }
+    .cta-band-btns { display: flex; gap: var(--sp-sm); justify-content: center; flex-wrap: wrap; }
+
+    @media (max-width: 900px) {
+      .who-grid { grid-template-columns: 1fr; }
+      .values-grid { grid-template-columns: 1fr; }
+      .stats-banner-inner { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .stats-banner-inner { grid-template-columns: 1fr 1fr; gap: var(--sp-md); }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="index.html">
+      <img src="vdplogonew.png" alt="VDP Advies" class="nav-logo">
+    </a>
+    <ul class="nav-links">
+      <li><a href="over-vdp.html" class="active">Over VDP</a></li>
+      <li><a href="onze-diensten.html">Diensten</a></li>
+      <li><a href="vdp-model.html">Het VDP-model</a></li>
+      <li><a href="werken-bij.html">Werken bij</a></li>
+      <li><a href="contact.html" class="nav-cta">Plan een gesprek</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <p class="page-hero-label">Over VDP Advies</p>
+    <h1 class="page-hero-heading">
+      Ruim 20 jaar <em>vertrouwde partner</em>
+    </h1>
+    <p class="page-hero-sub">
+      Betrouwbaar, betrokken en direct — voor ondernemers die het beste willen.
+    </p>
+  </div>
+</div>
+
+<!-- STATS BANNER -->
+<div class="stats-banner">
+  <div class="stats-banner-inner">
+    <div class="banner-stat fos">
+      <div class="banner-stat-n">20+</div>
+      <div class="banner-stat-l">Jaar ervaring</div>
+    </div>
+    <div class="banner-stat fos" style="transition-delay:60ms">
+      <div class="banner-stat-n">3</div>
+      <div class="banner-stat-l">Vestigingen</div>
+    </div>
+    <div class="banner-stat fos" style="transition-delay:120ms">
+      <div class="banner-stat-n">MKB</div>
+      <div class="banner-stat-l">&amp; particulieren</div>
+    </div>
+    <div class="banner-stat fos" style="transition-delay:180ms">
+      <div class="banner-stat-n">Direct</div>
+      <div class="banner-stat-l">Bereikbaar</div>
+    </div>
+  </div>
+</div>
+
+<!-- WIE WIJ ZIJN -->
+<section class="section intro-section">
+  <div class="section-inner">
+    <div class="who-grid">
+      <div>
+        <p class="section-label fos">Wie wij zijn</p>
+        <h2 class="section-heading fos">Een kantoor dat<br><em>met u meedenkt</em></h2>
+        <p class="fos" style="font-size:17px;line-height:1.78;color:var(--gray-600);margin-bottom:var(--sp-lg)">
+          VDP Advies is al ruim 20 jaar een advieskantoor op het gebied van belastingadvies en accountancy. Vanuit onze vestigingen in Bussum, Hilversum en Amsterdam bedienen wij een gevarieerd cliëntenpakket, voornamelijk gericht op de zakelijke MKB-markt en particulieren.
+        </p>
+        <p class="fos" style="font-size:16px;line-height:1.78;color:var(--gray-600);margin-bottom:var(--sp-lg)">
+          Wij zijn een laagdrempelige organisatie die haar cliënten serieus neemt. Uw belang staat bij ons centraal. Niet als slogan, maar als werkwijze. Dat betekent dat wij direct bereikbaar zijn, helder communiceren en altijd een stap verder denken dan u van ons verwacht.
+        </p>
+        <p class="fos" style="font-size:16px;line-height:1.78;color:var(--gray-600);margin-bottom:var(--sp-xl)">
+          Naast onze rol als adviseur voor ondernemers en particulieren zijn wij ook actief als platform: wij brengen kwalitatieve administratie- en advieskantoren samen die samen sterker willen zijn, met behoud van eigen identiteit.
+        </p>
+        <a href="contact.html" class="btn btn-primary fos">
+          Plan een kennismakingsgesprek
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+      </div>
+      <div class="who-img fos">
+        <img src="brand_assets/KantoorHilversum.jpg" alt="VDP Kantoor Hilversum">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WAARDEN -->
+<div class="values-row">
+  <div class="section-inner">
+    <p class="section-label fos" style="color:rgba(255,255,255,.35)">Waar wij voor staan</p>
+    <h2 class="section-heading fos" style="color:var(--white)">
+      De pijlers van onze samenwerking
+    </h2>
+    <div class="values-grid">
+      <div class="val-item fos">
+        <div class="val-num">01</div>
+        <h3 class="val-title">Wederzijds vertrouwen</h3>
+        <p class="val-body">De basis van elke goede samenwerking. Wij investeren in een relatie voor de lange termijn — niet in een eenmalige transactie.</p>
+      </div>
+      <div class="val-item fos" style="transition-delay:80ms">
+        <div class="val-num">02</div>
+        <h3 class="val-title">Direct en bereikbaar</h3>
+        <p class="val-body">Gewoon bellen. Wij zijn er. Uw vragen worden serieus genomen en snel beantwoord — door mensen die uw situatie kennen.</p>
+      </div>
+      <div class="val-item fos" style="transition-delay:160ms">
+        <div class="val-num">03</div>
+        <h3 class="val-title">Afspraak is afspraak</h3>
+        <p class="val-body">Geen verrassingen. Wél duidelijkheid. Deadlines zijn voor ons geen stressfactor maar een vanzelfsprekendheid.</p>
+      </div>
+      <div class="val-item fos" style="transition-delay:240ms">
+        <div class="val-num">04</div>
+        <h3 class="val-title">Slim georganiseerd</h3>
+        <p class="val-body">Moderne tooling, efficiënte processen. Zodat u minder tijd kwijt bent aan administratie en meer aan ondernemen.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LOCATIES -->
+<section class="section" style="background:var(--gray-50)">
+  <div class="section-inner">
+    <p class="section-label fos">Onze vestigingen</p>
+    <h2 class="section-heading fos">Dichtbij. Altijd bereikbaar.</h2>
+    <p class="section-sub fos">Drie kantoren in de regio Gooi en Amsterdam. Persoonlijk contact staat bij ons centraal — kom langs of bel ons direct.</p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-md)" class="fos">
+      <div class="kantoor-card">
+        <div class="kantoor-img">
+          <img src="brand_assets/KantoorBussum.jpg" alt="Kantoor Bussum" loading="lazy">
+        </div>
+        <div class="kantoor-info">
+          <h3 class="kantoor-name">Bussum</h3>
+          <p class="kantoor-addr">Meerweg 45<br>1405 BD Bussum<br>Tel: 035-6956900</p>
+        </div>
+      </div>
+      <div class="kantoor-card">
+        <div class="kantoor-img">
+          <img src="brand_assets/KantoorHilversum.jpg" alt="Kantoor Hilversum" loading="lazy">
+        </div>
+        <div class="kantoor-info">
+          <h3 class="kantoor-name">Hilversum <span style="font-family:var(--font-b);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue-primary);background:rgba(27,47,160,.08);padding:3px 9px;border-radius:100px;vertical-align:middle;margin-left:8px">Hoofdkantoor</span></h3>
+          <p class="kantoor-addr">Melkpad 20a<br>1217 KC Hilversum<br>Tel: 035-6980414</p>
+        </div>
+      </div>
+      <div class="kantoor-card">
+        <div class="kantoor-img">
+          <img src="brand_assets/KantoorAmsterdam.jpg" alt="Kantoor Amsterdam" loading="lazy">
+        </div>
+        <div class="kantoor-info">
+          <h3 class="kantoor-name">Amsterdam</h3>
+          <p class="kantoor-addr">Keizersgracht 387D<br>1016 EJ Amsterdam<br>Tel: 035-6980414</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-band">
+  <h2>Kennismaken?</h2>
+  <p>Wij denken graag met u mee. Zonder verplichtingen.</p>
+  <div class="cta-band-btns">
+    <a href="contact.html" class="btn btn-light">Plan een gesprek</a>
+    <a href="onze-diensten.html" class="btn btn-ghost-white">Bekijk onze diensten</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-in">
+    <div class="footer-top">
+      <div>
+        <img src="vdplogonew.png" alt="VDP Advies" class="footer-logo">
+        <p class="footer-tagline">Vertrouwd in advies.<br>Modern in samenwerking.</p>
+      </div>
+      <div>
+        <p class="footer-col-title">VDP Advies</p>
+        <ul class="footer-col-links">
+          <li><a href="over-vdp.html">Over VDP</a></li>
+          <li><a href="onze-diensten.html">Onze diensten</a></li>
+          <li><a href="vdp-model.html">Het VDP-model</a></li>
+          <li><a href="werken-bij.html">Werken bij</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Diensten</p>
+        <ul class="footer-col-links">
+          <li><a href="onze-diensten.html">Belastingadvies</a></li>
+          <li><a href="onze-diensten.html">Accountancy</a></li>
+          <li><a href="onze-diensten.html">Estate planning</a></li>
+          <li><a href="onze-diensten.html">Rijksmonumenten</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Contact</p>
+        <ul class="footer-col-links">
+          <li><a href="contact.html">Bussum · 035-6956900</a></li>
+          <li><a href="contact.html">Hilversum · 035-6980414</a></li>
+          <li><a href="contact.html">Amsterdam · 035-6980414</a></li>
+          <li><a href="mailto:info@vdpadvies.nl">info@vdpadvies.nl</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2024 VDP Advies · Alle rechten voorbehouden</p>
+      <p class="footer-copy">Bussum · Hilversum · Amsterdam</p>
+    </div>
+  </div>
+</footer>
+
+<script src="shared.js" defer></script>
+</body>
+</html>
