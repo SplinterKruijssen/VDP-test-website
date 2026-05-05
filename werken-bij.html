@@ -14,61 +14,182 @@
       gap: var(--sp-2xl); align-items: center;
     }
 
-    /* Pillars */
-    .pillars-section { background: var(--blue-navy); color: var(--white); }
-    .pillars-grid {
-      display: grid; grid-template-columns: repeat(2, 1fr);
-      gap: var(--sp-md); margin-top: var(--sp-xl);
+    /* Werken bij — Voordelen grid (compact, professional) */
+    .wb-perks-section {
+      position: relative;
+      background: var(--blue-faint);
+      padding-top: var(--sp-md);
+      padding-bottom: var(--sp-xl);
+      overflow: hidden;
     }
-    .pillar-card {
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.09);
+    .wb-perks-section::before {
+      content: '';
+      position: absolute;
+      top: -180px; right: -160px;
+      width: 540px; height: 540px;
+      background: radial-gradient(circle, rgba(27,47,160,.10) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .wb-perks-section .section-inner { position: relative; z-index: 1; }
+    .wb-perks-head {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: var(--sp-xl);
+      align-items: end;
+      margin-bottom: var(--sp-lg);
+      padding-bottom: var(--sp-md);
+      border-bottom: 1px solid var(--gray-100);
+    }
+    .wb-perks-head .section-heading { margin-bottom: 0; }
+    .wb-perks-intro {
+      font-size: 16px; line-height: 1.7;
+      color: var(--gray-600);
+      max-width: 460px;
+    }
+    .wb-perks-grid {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--gray-100);
+      border: 1px solid var(--gray-100);
       border-radius: var(--r-lg);
-      padding: var(--sp-xl) var(--sp-lg);
-      transition: background 200ms ease, transform 200ms ease-out;
+      overflow: hidden;
     }
-    .pillar-card:hover { background: rgba(255,255,255,.09); transform: translateY(-3px); }
-    .pillar-icon {
-      width: 48px; height: 48px;
+    .wb-perk {
+      position: relative;
+      background: var(--white);
+      padding: 22px 24px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: background 240ms ease;
+    }
+    .wb-perk { transition: background 280ms ease, color 280ms ease; }
+    .wb-perk-num, .wb-perk-num::before, .wb-perk-title, .wb-perk-body {
+      transition: color 280ms ease, background 280ms ease;
+    }
+    /* Per-tegel hover-blauw — verschillende tinten */
+    .wb-perk:nth-child(1):hover { background: var(--blue-deep); }
+    .wb-perk:nth-child(2):hover { background: var(--blue-navy); }
+    .wb-perk:nth-child(3):hover { background: var(--blue-primary); }
+    .wb-perk:nth-child(4):hover { background: var(--blue-mid); }
+    .wb-perk:nth-child(5):hover { background: var(--blue-light); }
+    .wb-perk:nth-child(6):hover { background: var(--blue-primary); }
+    .wb-perk:nth-child(7):hover { background: var(--blue-mid); }
+    .wb-perk:not(.wb-perk--cta):hover .wb-perk-title { color: var(--white); }
+    .wb-perk:not(.wb-perk--cta):hover .wb-perk-body { color: rgba(255,255,255,.78); }
+    .wb-perk:not(.wb-perk--cta):hover .wb-perk-num { color: rgba(255,255,255,.7); }
+    .wb-perk:not(.wb-perk--cta):hover .wb-perk-num::before { background: rgba(255,255,255,.6); }
+    .wb-perk-num {
+      font-family: var(--font-d);
+      font-size: 13px; font-weight: 500;
+      letter-spacing: .04em;
+      color: var(--blue-primary);
+      font-variant-numeric: tabular-nums;
+      margin-bottom: 8px;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .wb-perk-num::before {
+      content: '';
+      display: inline-block;
+      width: 14px; height: 1px;
       background: var(--blue-primary);
-      border-radius: var(--r-sm);
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: var(--sp-md);
+      opacity: .5;
     }
-    .pillar-icon svg {
-      width: 24px; height: 24px;
-      stroke: var(--white); fill: none;
-      stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round;
+    .wb-perk-title {
+      font-family: var(--font-d);
+      font-size: 19px;
+      font-weight: 500;
+      letter-spacing: -.018em;
+      line-height: 1.2;
+      color: var(--gray-800);
+      margin: 0;
     }
-    .pillar-title {
-      font-family: var(--font-d); font-size: 20px;
-      font-weight: 400; letter-spacing: -.01em;
-      color: var(--white); margin-bottom: 10px;
+    .wb-perk-body {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--gray-600);
+      margin: 0;
     }
-    .pillar-body { font-size: 14px; line-height: 1.68; color: rgba(255,255,255,.52); }
 
-    /* What we offer */
-    .offer-section { background: var(--white); }
-    .offer-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: var(--sp-md); margin-top: var(--sp-xl);
+    /* CTA tile — 8th item */
+    .wb-perk--cta {
+      padding: 0;
+      background: var(--blue-primary);
     }
-    .offer-item {
-      padding: var(--sp-lg);
-      border-left: 3px solid var(--blue-pale);
-      background: var(--gray-50);
-      border-radius: 0 var(--r-md) var(--r-md) 0;
-      transition: border-color 200ms ease, background 200ms ease;
+    .wb-perk--cta:hover { background: var(--blue-deep); }
+    .wb-perk--cta a {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding: 22px 24px 20px;
+      height: 100%;
+      color: inherit;
+      text-decoration: none;
+      position: relative;
     }
-    .offer-item:hover { border-left-color: var(--blue-primary); background: var(--blue-faint); }
-    .offer-title {
-      font-family: var(--font-d); font-size: 17px; font-weight: 400;
-      letter-spacing: -.01em; color: var(--gray-800); margin-bottom: 8px;
+    .wb-perk--cta .wb-perk-num {
+      color: rgba(255,255,255,.6);
     }
-    .offer-body { font-size: 14px; line-height: 1.65; color: var(--gray-600); }
+    .wb-perk--cta .wb-perk-num::before { background: rgba(255,255,255,.6); }
+    .wb-perk--cta .wb-perk-title { color: var(--white); }
+    .wb-perk--cta .wb-perk-body { color: rgba(255,255,255,.78); }
+    .wb-perk-arrow {
+      position: absolute;
+      right: 24px; bottom: 24px;
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.14);
+      display: flex; align-items: center; justify-content: center;
+      transition: transform 220ms ease, background 220ms ease;
+    }
+    .wb-perk--cta a:hover .wb-perk-arrow {
+      transform: translateX(4px);
+      background: rgba(255,255,255,.25);
+    }
+    .wb-perk-arrow svg {
+      width: 13px; height: 13px;
+      stroke: var(--white); fill: none;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    @media (max-width: 1024px) {
+      .wb-perks-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 760px) {
+      .wb-perks-head {
+        grid-template-columns: 1fr;
+        gap: var(--sp-md);
+        align-items: start;
+      }
+      .wb-perks-grid { grid-template-columns: repeat(2, 1fr); }
+      .wb-perk { padding: 18px 20px; }
+      .wb-perk-title { font-size: 17px; }
+    }
+    @media (max-width: 460px) {
+      .wb-perks-grid { grid-template-columns: 1fr; }
+    }
 
     /* Vacatures */
-    .vacatures-section { background: var(--gray-50); }
+    .vacatures-section {
+      position: relative;
+      background: var(--blue-pale);
+      overflow: hidden;
+    }
+    .vacatures-section::before {
+      content: '';
+      position: absolute;
+      bottom: -200px; left: -180px;
+      width: 560px; height: 560px;
+      background: radial-gradient(circle, rgba(74,106,212,.10) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .vacatures-section .section-inner { position: relative; z-index: 1; }
     .vacature-card {
       background: var(--white);
       border-radius: var(--r-md);
@@ -247,19 +368,18 @@
     }
   </style>
 </head>
-<body>
+<body data-track="kantoor">
 
 <nav class="nav" id="nav">
   <div class="nav-inner">
-    <a href="index.html">
+    <a href="index.html" class="nav-brand">
       <img src="vdplogonew.png" alt="VDP Advies" class="nav-logo">
     </a>
     <ul class="nav-links">
-      <li><a href="over-vdp.html">Over VDP</a></li>
-      <li><a href="onze-diensten.html">Diensten</a></li>
-      <li><a href="vdp-model.html">Het VDP-model</a></li>
-      <li><a href="werken-bij.html" class="active">Werken bij</a></li>
-      <li><a href="contact.html" class="nav-cta">Plan een gesprek</a></li>
+      <li data-tracks="kantoor"><a href="over-vdp.html">Over ons</a></li>
+      <li data-tracks="kantoor"><a href="werken-bij.html" class="active">Werken bij</a></li>
+      <li data-tracks="platform"><a href="vdp-model.html">Het VDP-model</a></li>
+      <li data-tracks="kantoor platform" class="nav-cta-li"><a href="contact.html" class="nav-cta">Plan een gesprek</a></li>
     </ul>
     <button class="nav-toggle" id="nav-toggle" aria-label="Menu openen" aria-expanded="false">
       <span></span>
@@ -283,7 +403,7 @@
 </div>
 
 <!-- INTRO -->
-<section class="section" style="background:var(--white)">
+<section class="section wb-intro-section" style="background:linear-gradient(180deg,var(--blue-pale) 0%,var(--blue-faint) 100%);position:relative;overflow:hidden;padding-bottom:var(--sp-md)">
   <div class="section-inner">
     <div class="wb-intro-grid">
       <div>
@@ -325,82 +445,66 @@
   </div>
 </section>
 
-<!-- PILLARS -->
-<section class="section pillars-section section-dark">
+<!-- WERKEN BIJ — Voordelen grid -->
+<section class="section wb-perks-section">
   <div class="section-inner">
-    <p class="section-label fos">Waarom VDP</p>
-    <h2 class="section-heading fos">
-      Vier redenen om hier<br>te willen werken
-    </h2>
-    <div class="pillars-grid">
-      <div class="pillar-card fos">
-        <div class="pillar-icon">
-          <svg viewBox="0 0 24 24"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg>
-        </div>
-        <h3 class="pillar-title">Ambitie &amp; groei</h3>
-        <p class="pillar-body">Je krijgt ruimte om te ontwikkelen — en wij investeren daarin. Via de VDP Academy, externe cursussen en dagelijkse uitdagingen leer je constant bij.</p>
+    <div class="wb-perks-head">
+      <div>
+        <p class="section-label fos">Wat krijg je hier</p>
+        <h2 class="section-heading fos">Waarom collega's<br>blijven bij VDP.</h2>
       </div>
-      <div class="pillar-card fos" style="transition-delay:80ms">
-        <div class="pillar-icon">
-          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </div>
-        <h3 class="pillar-title">Echt een team</h3>
-        <p class="pillar-body">Geen anonieme collega's. Mensen die je kent en op kunt bouwen. Een hecht team dat samenwerkt, kennis deelt en elkaar echt kent.</p>
-      </div>
-      <div class="pillar-card fos" style="transition-delay:160ms">
-        <div class="pillar-icon">
-          <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-        </div>
-        <h3 class="pillar-title">Continu leren</h3>
-        <p class="pillar-body">VDP Academy, collegiale kennisdeling en vakinhoudelijke verdieping. Je blijft scherp, relevant en gemotiveerd.</p>
-      </div>
-      <div class="pillar-card fos" style="transition-delay:240ms">
-        <div class="pillar-icon">
-          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-        </div>
-        <h3 class="pillar-title">Leuke sfeer</h3>
-        <p class="pillar-body">Teamdagen, uitjes en informele momenten. Wij zijn gewoon een prettig kantoor om voor te werken.</p>
-      </div>
+      <p class="wb-perks-intro fos">
+        Geen lange lijst met clichés. Dit is wat ons écht onderscheidt — kort, eerlijk, en uit eerste hand.
+      </p>
     </div>
-  </div>
-</section>
 
-<!-- WHAT WE OFFER -->
-<section class="section offer-section">
-  <div class="section-inner">
-    <p class="section-label fos">Wat wij bieden</p>
-    <h2 class="section-heading fos">
-      Méér dan een baan
-    </h2>
-    <p class="section-sub fos">
-      Naast een goed salaris en prettige werkplek bieden wij je de omgeving om te groeien — als professional én als persoon.
-    </p>
-    <div class="offer-grid">
-      <div class="offer-item fos">
-        <h4 class="offer-title">Marktconform salaris</h4>
-        <p class="offer-body">Eerlijke beloning die aansluit bij je ervaring en inzet.</p>
-      </div>
-      <div class="offer-item fos" style="transition-delay:60ms">
-        <h4 class="offer-title">Echte verantwoordelijkheid</h4>
-        <p class="offer-body">Vanaf dag één werk je aan echte dossiers van echte cliënten.</p>
-      </div>
-      <div class="offer-item fos" style="transition-delay:120ms">
-        <h4 class="offer-title">VDP Academy</h4>
-        <p class="offer-body">Toegang tot ons interne kennisplatform en trainingsprogramma.</p>
-      </div>
-      <div class="offer-item fos">
-        <h4 class="offer-title">Flexibele werktijden</h4>
-        <p class="offer-body">Wij werken resultaatgericht — niet op klokkijkers.</p>
-      </div>
-      <div class="offer-item fos" style="transition-delay:60ms">
-        <h4 class="offer-title">Teamactiviteiten</h4>
-        <p class="offer-body">Regelmatige teamdagen, uitjes en gezamenlijke momenten.</p>
-      </div>
-      <div class="offer-item fos" style="transition-delay:120ms">
-        <h4 class="offer-title">Pensioenregeling</h4>
-        <p class="offer-body">Goede pensioenopbouw via onze collectieve regeling.</p>
-      </div>
-    </div>
+    <ul class="wb-perks-grid">
+      <li class="wb-perk fos">
+        <span class="wb-perk-num">01</span>
+        <h3 class="wb-perk-title">Ambitie &amp; groei</h3>
+        <p class="wb-perk-body">Ruimte om te ontwikkelen, met de tijd en tools om te leren.</p>
+      </li>
+      <li class="wb-perk fos" style="transition-delay:60ms">
+        <span class="wb-perk-num">02</span>
+        <h3 class="wb-perk-title">Echte verantwoordelijkheid</h3>
+        <p class="wb-perk-body">Vanaf dag één werk je aan dossiers die ertoe doen.</p>
+      </li>
+      <li class="wb-perk fos" style="transition-delay:120ms">
+        <span class="wb-perk-num">03</span>
+        <h3 class="wb-perk-title">Hecht team</h3>
+        <p class="wb-perk-body">Mensen die je kent en die jou kennen. Drie kantoren, één team.</p>
+      </li>
+      <li class="wb-perk fos" style="transition-delay:180ms">
+        <span class="wb-perk-num">04</span>
+        <h3 class="wb-perk-title">VDP Academy</h3>
+        <p class="wb-perk-body">Intern kennisplatform, vaktechnische verdieping en peer-learning.</p>
+      </li>
+      <li class="wb-perk fos" style="transition-delay:60ms">
+        <span class="wb-perk-num">05</span>
+        <h3 class="wb-perk-title">Flexibele werktijden</h3>
+        <p class="wb-perk-body">Wij werken op resultaat, niet op klokkijkers.</p>
+      </li>
+      <li class="wb-perk fos" style="transition-delay:120ms">
+        <span class="wb-perk-num">06</span>
+        <h3 class="wb-perk-title">Marktconform salaris</h3>
+        <p class="wb-perk-body">Eerlijke beloning en goede pensioenregeling via collectieve regeling.</p>
+      </li>
+      <li class="wb-perk fos" style="transition-delay:180ms">
+        <span class="wb-perk-num">07</span>
+        <h3 class="wb-perk-title">Leuke sfeer</h3>
+        <p class="wb-perk-body">Teamdagen, vrijdagmiddag-borrels en informele momenten.</p>
+      </li>
+      <li class="wb-perk wb-perk--cta fos" style="transition-delay:240ms">
+        <a href="#vacatures">
+          <span class="wb-perk-num">08</span>
+          <h3 class="wb-perk-title">Volgende stap?</h3>
+          <p class="wb-perk-body">Bekijk de openstaande vacatures.</p>
+          <span class="wb-perk-arrow" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </span>
+        </a>
+      </li>
+    </ul>
   </div>
 </section>
 
@@ -486,7 +590,6 @@
         <p class="footer-col-title">VDP Advies</p>
         <ul class="footer-col-links">
           <li><a href="over-vdp.html">Over VDP</a></li>
-          <li><a href="onze-diensten.html">Onze diensten</a></li>
           <li><a href="vdp-model.html">Het VDP-model</a></li>
           <li><a href="werken-bij.html">Werken bij</a></li>
         </ul>
@@ -494,10 +597,9 @@
       <div>
         <p class="footer-col-title">Diensten</p>
         <ul class="footer-col-links">
-          <li><a href="onze-diensten.html">Belastingadvies</a></li>
-          <li><a href="onze-diensten.html">Accountancy</a></li>
-          <li><a href="onze-diensten.html">Estate planning</a></li>
-          <li><a href="onze-diensten.html">Rijksmonumenten</a></li>
+          <li><a href="over-vdp.html#advies">Advies</a></li>
+          <li><a href="over-vdp.html#administratie">Administratie &amp; Accountancy</a></li>
+          <li><a href="over-vdp.html#aangifte">Aangifte</a></li>
         </ul>
       </div>
       <div>
@@ -744,5 +846,6 @@
   });
 }());
 </script>
+
 </body>
 </html>

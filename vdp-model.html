@@ -8,6 +8,36 @@
   <style>
     /* ── VDP Model page ── */
 
+    /* Page-hero — links uitgelijnd, compact zodat .vuk snel volgt */
+    .page-hero {
+      padding: calc(72px + var(--sp-lg)) var(--sp-lg) var(--sp-md);
+      text-align: left;
+    }
+    .page-hero-inner { text-align: left; }
+
+    /* Heading — ingetogen, links */
+    .page-hero-heading {
+      font-size: clamp(30px, 3.4vw, 46px);
+      font-weight: 500;
+      letter-spacing: -.03em;
+      line-height: 1.1;
+      margin-bottom: 12px;
+      max-width: 720px;
+    }
+
+    /* Subtitle ruimer en links */
+    .page-hero-sub {
+      font-size: 16px;
+      line-height: 1.65;
+      max-width: 560px;
+      margin-bottom: 0;
+    }
+    @media (max-width: 600px) {
+      .page-hero { padding: calc(72px + var(--sp-lg)) var(--sp-md) var(--sp-lg); }
+      .page-hero-heading { font-size: 28px; }
+      .page-hero-sub { font-size: 14px; }
+    }
+
     /* Intro split */
     .model-intro-grid {
       display: grid; grid-template-columns: 1fr 1fr;
@@ -24,80 +54,140 @@
       margin-bottom: var(--sp-xl);
     }
 
-    /* Three steps */
-    .steps-section { background: var(--blue-deep); color: var(--white); }
-    .steps-grid {
+    /* Three steps — editorial process line */
+    .steps-section {
+      background: var(--blue-deep); color: var(--white);
+      padding-top: var(--sp-lg); padding-bottom: var(--sp-lg);
+    }
+    .steps-section .section-inner { position: relative; }
+    .steps-section .section-inner::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, var(--blue-light) 0%, rgba(74,106,212,.2) 100%);
+    }
+    .steps-strip {
       display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: rgba(255,255,255,.08);
-      border-radius: var(--r-xl);
-      overflow: hidden;
-      margin-top: var(--sp-xl);
+      gap: 0;
+      margin-top: var(--sp-lg);
     }
-    .step-card {
-      background: rgba(255,255,255,.04);
-      padding: var(--sp-xl) var(--sp-lg);
-      transition: background 200ms ease;
+    .step-row-item {
+      position: relative;
+      padding-right: var(--sp-lg);
+      transition: transform 200ms ease;
     }
-    .step-card:hover { background: rgba(255,255,255,.08); }
+    .step-row-item:hover { transform: translateY(-1px); }
+    .step-row-item:hover .step-num { color: #a5c3ff; }
+    .step-marker {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: var(--sp-sm);
+    }
     .step-num {
-      font-family: var(--font-d); font-size: 56px;
-      font-weight: 300; letter-spacing: -.05em; line-height: 1;
-      color: rgba(255,255,255,.1);
-      margin-bottom: var(--sp-md);
+      font-family: var(--font-d);
+      font-size: 28px; font-weight: 600;
+      letter-spacing: -.03em; line-height: 1;
+      color: var(--blue-light);
+      transition: color 200ms ease;
+    }
+    .step-rule {
+      flex: 1; height: 1px;
+      background: linear-gradient(to right, rgba(74,106,212,.6), rgba(74,106,212,.08));
+    }
+    .step-row-item:last-child .step-rule {
+      background: linear-gradient(to right, rgba(74,106,212,.4), transparent 70%);
     }
     .step-title {
-      font-family: var(--font-d); font-size: 24px;
-      font-weight: 400; letter-spacing: -.02em;
-      color: var(--white); margin-bottom: var(--sp-sm);
+      font-family: var(--font-d);
+      font-size: 17px; font-weight: 600;
+      letter-spacing: -.01em;
+      color: var(--white);
+      margin-bottom: 6px;
     }
     .step-body {
-      font-size: 15px; line-height: 1.72;
-      color: rgba(255,255,255,.52);
+      font-size: 13px; line-height: 1.6;
+      color: rgba(255,255,255,.62);
     }
-    .step-icon {
-      width: 44px; height: 44px;
-      background: var(--blue-primary);
+
+    /* Benefits section — themed grid (compact) */
+    .benefits-section {
+      position: relative;
+      background: var(--blue-faint);
+      overflow: hidden;
+    }
+    .benefits-section::before {
+      content: '';
+      position: absolute;
+      top: -120px; left: -140px;
+      width: 480px; height: 480px;
+      background: radial-gradient(circle, rgba(27,47,160,.09) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .benefits-section .section-inner { position: relative; z-index: 1; }
+    .benefits-section .section-heading {
+      font-size: clamp(32px, 4vw, 52px);
+    }
+    .benefit-theme { margin-top: var(--sp-lg); }
+    .benefit-theme:first-of-type { margin-top: var(--sp-xl); }
+    .benefit-theme-label {
+      font-size: 11px; font-weight: 600; letter-spacing: .14em;
+      text-transform: uppercase; color: var(--blue-primary);
+      margin-bottom: var(--sp-sm);
+    }
+    .benefit-theme-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: var(--sp-sm);
+    }
+    .benefit-card {
+      background: var(--white);
+      border: 1px solid var(--gray-100);
+      border-radius: var(--r-md);
+      padding: var(--sp-md);
+      transition: border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+    }
+    .benefit-card:hover {
+      border-color: var(--blue-pale);
+      box-shadow: var(--sh-card);
+      transform: translateY(-2px);
+    }
+    .benefit-card-head {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 8px;
+    }
+    .benefit-icon {
+      width: 28px; height: 28px;
+      background: var(--blue-pale);
       border-radius: var(--r-sm);
       display: flex; align-items: center; justify-content: center;
-      margin-bottom: var(--sp-lg);
+      flex-shrink: 0;
     }
-    .step-icon svg {
-      width: 22px; height: 22px;
-      stroke: var(--white); fill: none;
-      stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round;
+    .benefit-icon svg {
+      width: 16px; height: 16px;
+      stroke: var(--blue-primary); fill: none;
+      stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .benefit-card h4 {
+      font-family: var(--font-d); font-size: 15px;
+      font-weight: 500; letter-spacing: -.01em;
+      color: var(--gray-800); margin: 0;
+    }
+    .benefit-card p {
+      font-size: 13px; line-height: 1.55; color: var(--gray-600);
+      margin: 0;
     }
 
-    /* Benefits section */
-    .benefits-section { background: var(--white); }
-    .benefits-inner {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: var(--sp-2xl); align-items: start;
-    }
-    .benefit-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
-    .benefit-item {
-      display: flex; align-items: flex-start; gap: var(--sp-md);
-      padding: var(--sp-md) 0;
-      border-bottom: 1px solid var(--gray-100);
-      transition: background 200ms ease;
-    }
-    .benefit-item:first-child { padding-top: 0; }
-    .benefit-num {
-      font-family: var(--font-d); font-size: 13px;
-      color: var(--gray-400); min-width: 28px;
-      margin-top: 3px;
-    }
-    .benefit-text h4 {
-      font-family: var(--font-d); font-size: 17px;
-      font-weight: 400; letter-spacing: -.01em;
-      color: var(--gray-800); margin-bottom: 4px;
-    }
-    .benefit-text p { font-size: 14px; line-height: 1.65; color: var(--gray-600); }
-
-    .model-cta-box {
+    /* CTA banner — full-width below the themed grid */
+    .model-cta-banner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: var(--sp-xl); align-items: center;
       background: var(--blue-primary);
-      border-radius: var(--r-xl); padding: var(--sp-xl);
-      color: var(--white); position: sticky; top: 96px;
+      color: var(--white);
+      border-radius: var(--r-xl);
+      padding: var(--sp-xl);
+      margin-top: var(--sp-2xl);
     }
     .mcta-label {
       font-size: 10px; font-weight: 700; letter-spacing: .14em;
@@ -107,16 +197,35 @@
     .mcta-heading {
       font-family: var(--font-d); font-size: 24px;
       font-weight: 400; letter-spacing: -.02em;
-      line-height: 1.3; margin-bottom: var(--sp-md);
+      line-height: 1.3; margin-bottom: var(--sp-sm);
     }
     .mcta-body {
       font-size: 14px; line-height: 1.72;
-      color: rgba(255,255,255,.62); margin-bottom: var(--sp-lg);
+      color: rgba(255,255,255,.62);
+      margin-bottom: 0;
     }
-    .mcta-btns { display: flex; flex-direction: column; gap: 10px; }
+    .mcta-btns {
+      display: flex; flex-direction: row;
+      gap: 10px;
+    }
 
     /* Foundation */
-    .foundation { background: var(--gray-50); }
+    .foundation {
+      position: relative;
+      background: var(--blue-pale);
+      overflow: hidden;
+    }
+    .foundation::before {
+      content: '';
+      position: absolute;
+      top: -160px; right: -160px;
+      width: 540px; height: 540px;
+      background: radial-gradient(circle, rgba(27,47,160,.10) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .foundation .section-inner { position: relative; z-index: 1; }
     .principles-grid {
       display: grid; grid-template-columns: repeat(2, 1fr);
       gap: var(--sp-md); margin-top: var(--sp-xl);
@@ -179,32 +288,236 @@
     }
 
     @media (max-width: 900px) {
-      .model-intro-grid, .benefits-inner,
+      .model-intro-grid,
       .for-who-inner { grid-template-columns: 1fr; }
-      .steps-grid { grid-template-columns: 1fr; }
+      .steps-strip { grid-template-columns: 1fr; gap: var(--sp-md); }
+      .step-rule { display: none; }
+      .step-row-item { padding-right: 0; }
+      .benefit-theme-grid { grid-template-columns: 1fr; }
+      .model-cta-banner { grid-template-columns: 1fr; gap: var(--sp-md); }
+      .mcta-btns { flex-direction: column; }
       .principles-grid { grid-template-columns: 1fr; }
-      .model-cta-box { position: static; }
       .vdp-net-canvas { max-width: 320px; }
     }
     @media (max-width: 600px) {
-      .step-num { font-size: 40px; }
       .vdp-net-canvas { max-width: 280px; }
+    }
+
+    /* ════════════════════════════════════════════
+       VOOR UW KANTOOR — section directly under hero
+    ════════════════════════════════════════════ */
+    .vuk {
+      position: relative;
+      padding: var(--sp-md) var(--sp-lg) var(--sp-lg);
+      background: linear-gradient(180deg, var(--blue-pale) 0%, var(--blue-faint) 100%);
+      overflow: hidden;
+    }
+    /* Zachte hairline-divider tussen .vuk en .model-intro — voelt als één doorlopend
+       blok, maar markeert subtiel het overgangsmoment */
+    .vuk + .section.model-intro::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      transform: translateX(-50%);
+      width: min(880px, 70%);
+      height: 1px;
+      background: linear-gradient(90deg,
+        transparent 0%,
+        rgba(27,47,160,.14) 50%,
+        transparent 100%);
+      pointer-events: none;
+    }
+    .section.model-intro { position: relative; }
+    .vuk::before {
+      content: '';
+      position: absolute;
+      top: -180px; right: -160px;
+      width: 520px; height: 520px;
+      background: radial-gradient(circle, rgba(27,47,160,.12) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .vuk::after {
+      content: '';
+      position: absolute;
+      bottom: -260px; left: -200px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(74,106,212,.10) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .vuk-inner { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; }
+
+    .vuk-header {
+      display: grid;
+      grid-template-columns: 40fr 60fr;
+      gap: var(--sp-2xl);
+      align-items: end;
+      margin-bottom: var(--sp-lg);
+    }
+    .vuk-eyebrow {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--blue-primary);
+      margin-bottom: var(--sp-sm);
+    }
+    .vuk-heading {
+      font-family: var(--font-d);
+      font-size: clamp(32px, 4vw, 54px);
+      font-weight: 400; letter-spacing: -.035em;
+      line-height: 1.05;
+      color: var(--blue-deep);
+    }
+    .vuk-heading .vuk-italic {
+      display: block;
+      font-style: italic;
+      color: var(--blue-deep);
+    }
+    .vuk-subline {
+      font-size: 18px; line-height: 1.65;
+      color: var(--gray-600);
+      max-width: 520px;
+      padding-bottom: 6px;
+    }
+
+    .vuk-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      background: var(--white);
+      border: 1px solid var(--gray-100);
+      border-radius: var(--r-md);
+      box-shadow: var(--sh-card);
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .vuk-col {
+      position: relative;
+      z-index: 1;
+      padding: var(--sp-md) 0;
+      border-right: 1px solid var(--gray-100);
+      display: flex;
+      flex-direction: column;
+    }
+    .vuk-col:last-child { border-right: none; }
+    .vuk-col-label {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--blue-primary);
+      padding: 0 var(--sp-lg);
+      margin-bottom: var(--sp-md);
+      transition: color 280ms ease;
+    }
+    /* Elke vuk-item is een hover-tegel — modern, losser, met groot fading icoon */
+    .vuk-item {
+      position: relative;
+      padding: var(--sp-md) var(--sp-md);
+      min-height: 150px;
+      background: var(--white);
+      transition: background 420ms ease;
+      overflow: hidden;
+      cursor: default;
+    }
+    .vuk-item + .vuk-item {
+      border-top: 1px solid var(--gray-100);
+    }
+    .vuk-item-title {
+      position: relative;
+      z-index: 2;
+      font-family: var(--font-b);
+      font-size: 17px; font-weight: 700;
+      color: var(--blue-deep);
+      letter-spacing: -.01em;
+      margin-bottom: 0;
+      transition: color 420ms ease;
+    }
+    /* Icoon — groot, los rechts-onder geplaatst, fade aan de randen,
+       speelser dan strak onder de titel */
+    .vuk-item-icon {
+      position: absolute;
+      right: -10px;
+      bottom: -14px;
+      width: 110px; height: 110px;
+      color: #4A6AD4;            /* blue-light */
+      opacity: .55;
+      transform: translateY(0) rotate(-6deg);
+      transition: opacity 360ms ease, transform 520ms cubic-bezier(.22,1,.36,1), color 420ms ease;
+      pointer-events: none;
+      -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 45%, rgba(0,0,0,.55) 70%, transparent 100%);
+              mask-image: radial-gradient(circle at 50% 50%, #000 45%, rgba(0,0,0,.55) 70%, transparent 100%);
+      filter: drop-shadow(0 6px 18px rgba(74,106,212,.25));
+    }
+    .vuk-item-icon svg { width: 100%; height: 100%; }
+    /* Body — default verstopt, verschijnt op hover */
+    .vuk-item-body {
+      position: absolute;
+      left: var(--sp-md); right: var(--sp-md);
+      top: calc(var(--sp-md) + 32px);
+      z-index: 2;
+      font-size: 14.5px; line-height: 1.6;
+      color: rgba(255,255,255,.92);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 320ms ease 100ms, transform 360ms cubic-bezier(.22,1,.36,1) 100ms;
+      pointer-events: none;
+    }
+    /* Hover: kleuren omdraaien, icoon vergroot+fadet weg, tekst in beeld */
+    .vuk-item:hover .vuk-item-icon {
+      opacity: 0;
+      transform: translateY(-12px) rotate(0deg) scale(1.18);
+    }
+    .vuk-item:hover .vuk-item-body {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .vuk-item:hover .vuk-item-title { color: var(--white); }
+    /* Per-tegel hover-blauw — middentinten, niet te donker, niet te licht */
+    .vuk-col:nth-of-type(1) .vuk-item:nth-of-type(1):hover { background: #3553C7; }
+    .vuk-col:nth-of-type(1) .vuk-item:nth-of-type(2):hover { background: #4A6AD4; }
+    .vuk-col:nth-of-type(2) .vuk-item:nth-of-type(1):hover { background: #2B45C8; }
+    .vuk-col:nth-of-type(2) .vuk-item:nth-of-type(2):hover { background: #3F5BCF; }
+    .vuk-col:nth-of-type(3) .vuk-item:nth-of-type(1):hover { background: #4A6AD4; }
+    .vuk-col:nth-of-type(3) .vuk-item:nth-of-type(2):hover { background: #5773D8; }
+
+    .vuk-cta-wrap {
+      margin-top: var(--sp-lg);
+      display: flex; justify-content: center;
+    }
+
+    @media (max-width: 900px) {
+      .vuk-header {
+        grid-template-columns: 1fr;
+        gap: var(--sp-md);
+        align-items: start;
+      }
+      .vuk-grid {
+        grid-template-columns: 1fr;
+      }
+      .vuk-col {
+        border-right: none;
+        border-bottom: 1px solid var(--gray-100);
+        padding: var(--sp-lg);
+      }
+      .vuk-col:last-child { border-bottom: none; }
+      .vuk-subline { padding-bottom: 0; max-width: none; }
     }
   </style>
 </head>
-<body>
+<body data-track="platform">
 
 <nav class="nav" id="nav">
   <div class="nav-inner">
-    <a href="index.html">
+    <a href="index.html" class="nav-brand">
       <img src="vdplogonew.png" alt="VDP Advies" class="nav-logo">
     </a>
     <ul class="nav-links">
-      <li><a href="over-vdp.html">Over VDP</a></li>
-      <li><a href="onze-diensten.html">Diensten</a></li>
-      <li><a href="vdp-model.html" class="active">Het VDP-model</a></li>
-      <li><a href="werken-bij.html">Werken bij</a></li>
-      <li><a href="contact.html" class="nav-cta">Plan een gesprek</a></li>
+      <li data-tracks="kantoor"><a href="over-vdp.html">Over ons</a></li>
+      <li data-tracks="kantoor"><a href="werken-bij.html">Werken bij</a></li>
+      <li data-tracks="platform"><a href="vdp-model.html" class="active">Het VDP-model</a></li>
+      <li data-tracks="kantoor platform" class="nav-cta-li"><a href="contact-vdp.html" class="nav-cta">Plan een gesprek</a></li>
     </ul>
     <button class="nav-toggle" id="nav-toggle" aria-label="Menu openen" aria-expanded="false">
       <span></span>
@@ -217,7 +530,7 @@
 <!-- HERO -->
 <div class="page-hero">
   <div class="page-hero-inner">
-    <p class="page-hero-label">Voor administratiekantoren</p>
+    <p class="page-hero-label">Voor kantoren</p>
     <h1 class="page-hero-heading">
       Het VDP-model
     </h1>
@@ -227,8 +540,70 @@
   </div>
 </div>
 
+<!-- VOOR UW KANTOOR -->
+<section class="vuk">
+  <div class="vuk-inner">
+    <div class="vuk-grid fos">
+      <div class="vuk-col">
+        <p class="vuk-col-label">Mensen &amp; vakkennis</p>
+        <div class="vuk-item">
+          <h3 class="vuk-item-title">HR &amp; talent</h3>
+          <span class="vuk-item-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><path d="M5 20.5c0-3.6 3.1-6.5 7-6.5s7 2.9 7 6.5"/></svg>
+          </span>
+          <p class="vuk-item-body">Werving, contracten en personeelsbeleid op maat &mdash; zonder overhead.</p>
+        </div>
+        <div class="vuk-item">
+          <h3 class="vuk-item-title">Vaktechniek &amp; academy</h3>
+          <span class="vuk-item-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5A1.5 1.5 0 0 1 5.5 4H12v15.5H5.5A1.5 1.5 0 0 1 4 18z"/><path d="M20 5.5A1.5 1.5 0 0 0 18.5 4H12v15.5h6.5A1.5 1.5 0 0 0 20 18z"/></svg>
+          </span>
+          <p class="vuk-item-body">VDP Academy en peer-learning binnen het netwerk.</p>
+        </div>
+      </div>
+
+      <div class="vuk-col">
+        <p class="vuk-col-label">Techniek &amp; innovatie</p>
+        <div class="vuk-item">
+          <h3 class="vuk-item-title">Automatisering &amp; ICT</h3>
+          <span class="vuk-item-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="12" height="12" rx="1.5"/><rect x="9.5" y="9.5" width="5" height="5"/><path d="M9 3v3M15 3v3M9 18v3M15 18v3M3 9h3M3 15h3M18 9h3M18 15h3"/></svg>
+          </span>
+          <p class="vuk-item-body">Werkstromen, tooling, security en support &mdash; ingericht door specialisten.</p>
+        </div>
+        <div class="vuk-item">
+          <h3 class="vuk-item-title">AI &amp; data</h3>
+          <span class="vuk-item-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M11 3l1.4 4.6L17 9l-4.6 1.4L11 15l-1.4-4.6L5 9l4.6-1.4z"/><path d="M18 14l.7 2.3 2.3.7-2.3.7L18 20l-.7-2.3L15 17l2.3-.7z"/></svg>
+          </span>
+          <p class="vuk-item-body">Bewezen AI-toepassingen voor accountancy en advies.</p>
+        </div>
+      </div>
+
+      <div class="vuk-col">
+        <p class="vuk-col-label">Netwerk &amp; continu&iuml;teit</p>
+        <div class="vuk-item">
+          <h3 class="vuk-item-title">Continu&iuml;teit &amp; opvolging</h3>
+          <span class="vuk-item-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.6-3.5 8.6-8 9.5-4.5-.9-8-4.9-8-9.5V6z"/><path d="M9 12l2 2 4-4"/></svg>
+          </span>
+          <p class="vuk-item-body">Heldere structuur voor de toekomst &mdash; op uw tempo.</p>
+        </div>
+        <div class="vuk-item">
+          <h3 class="vuk-item-title">Schaalvoordelen &amp; samenwerking</h3>
+          <span class="vuk-item-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="2.5"/><circle cx="5" cy="5" r="2"/><circle cx="19" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M6.5 6.5l3.7 3.7M17.5 6.5l-3.7 3.7M6.5 17.5l3.7-3.7M17.5 17.5l-3.7-3.7"/></svg>
+          </span>
+          <p class="vuk-item-body">Inkoopvoordelen op tooling, en korte lijnen met notarissen, advocaten en RA-accountants.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- INTRO -->
-<section class="section" style="background:var(--white)">
+<section class="section model-intro" style="background:linear-gradient(180deg,var(--blue-faint) 0%,var(--white) 100%);padding-top:var(--sp-lg)">
   <div class="section-inner">
     <div class="model-intro-grid">
       <div>
@@ -242,7 +617,7 @@
         <p class="fos" style="font-size:16px;line-height:1.78;color:var(--gray-600);margin-bottom:var(--sp-xl)">
           Het VDP-model is geen overname. Het is een partnerschap. U blijft ondernemer, u houdt de regie, en u profiteert van schaal en expertise zonder uw eigenheid te verliezen.
         </p>
-        <a href="contact.html" class="btn btn-primary fos">
+        <a href="contact-vdp.html" class="btn btn-primary fos">
           Bespreek de mogelijkheden
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
@@ -258,107 +633,34 @@
   </div>
 </section>
 
-<!-- THREE STEPS -->
+<!-- THREE STEPS — editorial process line -->
 <section class="section steps-section section-dark">
   <div class="section-inner">
-    <p class="section-label fos">Het proces</p>
-    <h2 class="section-heading fos">Drie stappen. Één richting.</h2>
-    <div class="steps-grid">
-      <div class="step-card fos">
-        <div class="step-icon">
-          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    <p class="section-label fos">Drie stappen. Één richting.</p>
+    <div class="steps-strip">
+      <div class="step-row-item fos">
+        <div class="step-marker">
+          <span class="step-num">01</span>
+          <div class="step-rule"></div>
         </div>
-        <div class="step-num">01</div>
         <h3 class="step-title">Samenwerken</h3>
-        <p class="step-body">U behoudt uw identiteit en ondernemerschap volledig. VDP ondersteunt op de achtergrond — op het moment dat u er behoefte aan heeft. Geen opgelegde aanpak. Wel een sterke basis.</p>
+        <p class="step-body">U behoudt uw identiteit. VDP ondersteunt op de achtergrond.</p>
       </div>
-      <div class="step-card fos" style="transition-delay:80ms">
-        <div class="step-icon">
-          <svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+      <div class="step-row-item fos" style="transition-delay:80ms">
+        <div class="step-marker">
+          <span class="step-num">02</span>
+          <div class="step-rule"></div>
         </div>
-        <div class="step-num">02</div>
         <h3 class="step-title">Groeien</h3>
-        <p class="step-body">Door centrale ondersteuning vergroot u uw slagkracht op HR, recruitment, kennisdeling, automatisering en vaktechnische ontwikkeling. U kunt doen waar u goed in bent — beter, en met minder ruis.</p>
+        <p class="step-body">Centrale ondersteuning vergroot uw slagkracht.</p>
       </div>
-      <div class="step-card fos" style="transition-delay:160ms">
-        <div class="step-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <div class="step-row-item fos" style="transition-delay:160ms">
+        <div class="step-marker">
+          <span class="step-num">03</span>
+          <div class="step-rule"></div>
         </div>
-        <div class="step-num">03</div>
         <h3 class="step-title">Zekerheid voor later</h3>
-        <p class="step-body">U bouwt aan iets dat blijft. Voor uw cliënten, uw medewerkers en uzelf. Het VDP-model biedt een heldere, transparante basis voor continuïteit en overdracht — op uw eigen tempo en voorwaarden.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- BENEFITS -->
-<section class="section benefits-section">
-  <div class="section-inner">
-    <div class="benefits-inner">
-      <div>
-        <p class="section-label fos">Wat u krijgt</p>
-        <h2 class="section-heading fos">
-          Alles wat uw kantoor<br>sterker maakt
-        </h2>
-        <ul class="benefit-list">
-          <li class="benefit-item fos">
-            <span class="benefit-num">01</span>
-            <div class="benefit-text">
-              <h4>Eigen naam &amp; identiteit</h4>
-              <p>Uw kantoor blijft herkenbaar. Uw naam, uw cultuur, uw manier van werken — dat blijft volledig van u.</p>
-            </div>
-          </li>
-          <li class="benefit-item fos" style="transition-delay:60ms">
-            <span class="benefit-num">02</span>
-            <div class="benefit-text">
-              <h4>Centrale HR &amp; recruitment</h4>
-              <p>Vind en bind talent met de ondersteuning van een professioneel HR-team. VDP regelt de achterkant, u focust op uw team.</p>
-            </div>
-          </li>
-          <li class="benefit-item fos" style="transition-delay:120ms">
-            <span class="benefit-num">03</span>
-            <div class="benefit-text">
-              <h4>Kennisdeling &amp; academy</h4>
-              <p>Toegang tot een netwerk van collega-kantoren, vaktechnische kennisdeling en een groeiend aanbod vanuit de VDP Academy.</p>
-            </div>
-          </li>
-          <li class="benefit-item fos" style="transition-delay:180ms">
-            <span class="benefit-num">04</span>
-            <div class="benefit-text">
-              <h4>Automatisering &amp; tooling</h4>
-              <p>Schaalvoordelen in software en processen. Efficiënter werken met tools die aansluiten bij uw praktijk.</p>
-            </div>
-          </li>
-          <li class="benefit-item fos" style="transition-delay:240ms">
-            <span class="benefit-num">05</span>
-            <div class="benefit-text">
-              <h4>Zekerheid voor continuïteit</h4>
-              <p>Een duurzame toekomst voor uw kantoor, uw cliënten en uw medewerkers. Op uw eigen tempo en voorwaarden.</p>
-            </div>
-          </li>
-          <li class="benefit-item fos" style="transition-delay:300ms">
-            <span class="benefit-num">06</span>
-            <div class="benefit-text">
-              <h4>Schaalvoordelen zonder uw eigenheid</h4>
-              <p>Groter worden zonder groot te worden. U geniet van schaalvoordelen terwijl u de voordelen van een persoonlijk kantoor behoudt.</p>
-            </div>
-          </li>
-        </ul>
-      </div>
-      <div>
-        <div class="model-cta-box fos">
-          <div class="mcta-label">Interesse?</div>
-          <h3 class="mcta-heading">Kennismaken met het VDP-model</h3>
-          <p class="mcta-body">Wij bespreken graag hoe het VDP-model past bij uw situatie — zonder verplichtingen en volledig op uw eigen voorwaarden.</p>
-          <div class="mcta-btns">
-            <a href="contact.html" class="btn btn-light">
-              Plan een gesprek
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-            </a>
-            <a href="contact.html" class="btn btn-ghost-white">Ik ben geïnteresseerd</a>
-          </div>
-        </div>
+        <p class="step-body">Een duurzame toekomst voor uw kantoor en cliënten.</p>
       </div>
     </div>
   </div>
@@ -435,7 +737,7 @@
       <div>
 
         <div style="margin-top:var(--sp-xl)" class="fos">
-          <a href="contact.html" class="btn btn-light">
+          <a href="contact-vdp.html" class="btn btn-light">
             Kennismaken
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </a>
@@ -456,7 +758,6 @@
         <p class="footer-col-title">VDP Advies</p>
         <ul class="footer-col-links">
           <li><a href="over-vdp.html">Over VDP</a></li>
-          <li><a href="onze-diensten.html">Onze diensten</a></li>
           <li><a href="vdp-model.html">Het VDP-model</a></li>
           <li><a href="werken-bij.html">Werken bij</a></li>
         </ul>
@@ -464,18 +765,17 @@
       <div>
         <p class="footer-col-title">Diensten</p>
         <ul class="footer-col-links">
-          <li><a href="onze-diensten.html">Belastingadvies</a></li>
-          <li><a href="onze-diensten.html">Accountancy</a></li>
-          <li><a href="onze-diensten.html">Estate planning</a></li>
-          <li><a href="onze-diensten.html">Rijksmonumenten</a></li>
+          <li><a href="over-vdp.html#advies">Advies</a></li>
+          <li><a href="over-vdp.html#administratie">Administratie &amp; Accountancy</a></li>
+          <li><a href="over-vdp.html#aangifte">Aangifte</a></li>
         </ul>
       </div>
       <div>
         <p class="footer-col-title">Contact</p>
         <ul class="footer-col-links">
-          <li><a href="contact.html">Bussum · 035-6956900</a></li>
-          <li><a href="contact.html">Hilversum · 035-6980414</a></li>
-          <li><a href="contact.html">Amsterdam · 035-6980414</a></li>
+          <li><a href="contact-vdp.html">Bussum · 035-6956900</a></li>
+          <li><a href="contact-vdp.html">Hilversum · 035-6980414</a></li>
+          <li><a href="contact-vdp.html">Amsterdam · 035-6980414</a></li>
           <li><a href="mailto:info@vdpadvies.nl">info@vdpadvies.nl</a></li>
         </ul>
       </div>

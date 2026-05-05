@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact — VDP Advies</title>
+  <title>Plan een gesprek · Het VDP-model — VDP Advies</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <style>
-    /* ── Contact page ── */
+    /* ── Contact page (platform track) ── */
 
     /* Hero CTA row */
     .page-hero-actions {
@@ -42,7 +42,6 @@
       z-index: 0;
     }
     .offices-section > .section-inner { position: relative; z-index: 1; }
-    /* Force "Drie kantoren in de regio…" on a single line */
     .offices-section .section-sub {
       max-width: none;
       white-space: nowrap;
@@ -130,7 +129,7 @@
     }
   </style>
 </head>
-<body data-track="kantoor">
+<body data-track="platform">
 
 <nav class="nav" id="nav">
   <div class="nav-inner">
@@ -140,8 +139,8 @@
     <ul class="nav-links">
       <li data-tracks="kantoor"><a href="over-vdp.html">Over ons</a></li>
       <li data-tracks="kantoor"><a href="werken-bij.html">Werken bij</a></li>
-      <li data-tracks="platform"><a href="vdp-model.html">Het VDP-model</a></li>
-      <li data-tracks="kantoor platform" class="nav-cta-li"><a href="contact.html" class="nav-cta active">Plan een gesprek</a></li>
+      <li data-tracks="platform"><a href="vdp-model.html" class="active">Het VDP-model</a></li>
+      <li data-tracks="kantoor platform" class="nav-cta-li"><a href="contact-vdp.html" class="nav-cta active">Plan een gesprek</a></li>
     </ul>
     <button class="nav-toggle" id="nav-toggle" aria-label="Menu openen" aria-expanded="false">
       <span></span>
@@ -154,21 +153,17 @@
 <!-- HERO -->
 <div class="page-hero">
   <div class="page-hero-inner">
-    <p class="page-hero-label">Contact</p>
+    <p class="page-hero-label">Het VDP-model · Contact</p>
     <h1 class="page-hero-heading">
-      Neem contact op
+      Bespreek de <em>mogelijkheden</em>
     </h1>
     <p class="page-hero-sub">
-      Wij zijn er voor u. Direct, persoonlijk en zonder omwegen.
+      Verken vrijblijvend wat het VDP-model voor uw kantoor kan betekenen. Persoonlijk, zonder verplichtingen.
     </p>
     <div class="page-hero-actions">
-      <a href="over-vdp.html" class="btn btn-ghost-white">
-        Over ons
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
-      <a href="werken-bij.html" class="btn btn-ghost-white">
-        Werken bij
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      <a href="vdp-model.html" class="btn btn-ghost-white">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        Terug naar Het VDP-model
       </a>
     </div>
   </div>
@@ -281,9 +276,9 @@
       <div>
         <p class="footer-col-title">Contact</p>
         <ul class="footer-col-links">
-          <li><a href="contact.html">Bussum · 035-6956900</a></li>
-          <li><a href="contact.html">Hilversum · 035-6980414</a></li>
-          <li><a href="contact.html">Amsterdam · 035-6980414</a></li>
+          <li><a href="contact-vdp.html">Bussum · 035-6956900</a></li>
+          <li><a href="contact-vdp.html">Hilversum · 035-6980414</a></li>
+          <li><a href="contact-vdp.html">Amsterdam · 035-6980414</a></li>
           <li><a href="mailto:info@vdpadvies.nl">info@vdpadvies.nl</a></li>
         </ul>
       </div>
@@ -317,7 +312,7 @@
         <p id="km-addr" class="km-addr"></p>
         <p id="km-pc"   class="km-pc"></p>
         <div id="km-contacts" class="km-contacts"></div>
-        <a href="contact.html" class="km-cta">
+        <a href="contact-vdp.html" class="km-cta">
           Plan een gesprek
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>

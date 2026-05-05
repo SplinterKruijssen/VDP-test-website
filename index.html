@@ -5,20 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>VDP Advies — Vertrouwd in advies. Modern in samenwerking.</title>
   <link rel="stylesheet" href="styles.css">
-  <!-- Leaflet — interactive office map in modal -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <style>
     /* ══════════════════════════════════════════
        HOMEPAGE — HERO
     ══════════════════════════════════════════ */
+
+    /* Splash directory — fills the viewport exactly, no scroll */
+    body[data-track="home"],
+    body[data-track="home"] html { overflow: hidden; }
+    body[data-track="home"] { height: 100vh; }
 
     /* Split container */
     .hero {
       display: grid;
       grid-template-columns: 1fr 1fr;
       height: 100vh;
-      min-height: 640px;
-      max-height: 960px;
       position: relative;
       overflow: hidden;
     }
@@ -76,7 +77,7 @@
       color: var(--white);
       padding-left: 20px;
     }
-    /* Thin editorial accent bar — signals statement, establishes stature */
+    /* Thin editorial accent bar — left of the heading */
     .hero-trust-content::before {
       content: '';
       position: absolute;
@@ -126,18 +127,18 @@
 
     /* Decorative top-left rule on the trust side */
     .hero-trust-rule {
-      position: absolute; top: var(--sp-2xl); left: var(--sp-xl);
+      position: absolute; top: var(--sp-2xl); right: var(--sp-xl);
       z-index: 2;
-      display: flex; align-items: center; gap: 14px;
+      display: flex; flex-direction: row-reverse; align-items: center; gap: 14px;
     }
     .trust-rule-line {
       width: 32px; height: 1px;
-      background: rgba(255,255,255,.25);
+      background: rgba(255,255,255,.4);
     }
     .trust-rule-text {
       font-size: 10px; font-weight: 600;
       letter-spacing: .15em; text-transform: uppercase;
-      color: rgba(255,255,255,.28);
+      color: rgba(255,255,255,.45);
     }
 
     /* ── RIGHT PANEL — Platform / Network ── */
@@ -174,6 +175,19 @@
       position: absolute; z-index: 3;
       bottom: var(--sp-2xl); left: var(--sp-xl); right: var(--sp-xl);
       color: var(--white);
+      padding-left: 20px;
+    }
+    /* Thin editorial accent bar — left of the heading */
+    .hero-platform-content::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 3px; bottom: 16px;
+      width: 2px;
+      background: linear-gradient(to bottom,
+        rgba(130,165,255,.55) 0%,
+        rgba(130,165,255,.10) 100%
+      );
+      border-radius: 1px;
     }
 
     .hero-platform-heading {
@@ -199,24 +213,40 @@
       margin-bottom: var(--sp-lg);
     }
 
-    /* Network counter badge */
+    /* Network counter badge — label sits at same y as "Opgericht 2005" rule */
     .network-badge {
-      position: absolute; top: var(--sp-2xl); right: var(--sp-xl);
+      position: absolute; top: var(--sp-2xl); left: var(--sp-xl);
       z-index: 3;
-      text-align: right;
+      text-align: left;
+      display: flex; flex-direction: column-reverse;
+      gap: 6px;
     }
     .network-badge-num {
       font-family: var(--font-d);
       font-size: 38px; font-weight: 300;
-      color: rgba(255,255,255,.15);
+      color: rgba(255,255,255,.28);
       line-height: 1;
       letter-spacing: -.04em;
     }
     .network-badge-label {
-      font-size: 9px; font-weight: 600;
-      letter-spacing: .14em; text-transform: uppercase;
-      color: rgba(255,255,255,.2);
-      margin-top: 4px;
+      font-size: 10px; font-weight: 600;
+      letter-spacing: .15em; text-transform: uppercase;
+      color: rgba(255,255,255,.45);
+      margin-top: 0;
+    }
+
+    /* "Het VDP-model" knop — versterkt accent op donker hero-paneel */
+    .btn-vdp-model {
+      font-weight: 600;
+      padding: 15px 28px;
+      box-shadow: 0 0 0 1px rgba(255,255,255,.35) inset,
+                  0 6px 18px rgba(8,15,56,.30),
+                  0 14px 40px rgba(130,165,255,.25);
+    }
+    .btn-vdp-model:hover {
+      box-shadow: 0 0 0 1px rgba(255,255,255,.6) inset,
+                  0 8px 24px rgba(8,15,56,.36),
+                  0 20px 56px rgba(130,165,255,.40);
     }
 
     /* ══════════════════════════
@@ -395,21 +425,22 @@
       gap: var(--sp-md); margin-top: var(--sp-xl);
     }
 
-    /* Waarden */
-    .waarden {
-      background: var(--blue-navy);
-      color: var(--white);
-    }
-    .waarden-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr);
-      gap: var(--sp-md); margin-top: var(--sp-xl);
-    }
 
     /* Diensten */
-    .diensten { background: var(--gray-50); }
+    .diensten { background: var(--white); padding-bottom: 0; }
     .diensten-head {
-      display: flex; justify-content: space-between; align-items: flex-end;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--sp-md);
       margin-bottom: var(--sp-xl);
+      text-align: center;
+    }
+    .diensten-head .section-label { margin-bottom: 0; }
+    .diensten-head .section-heading {
+      max-width: 720px;
+      font-size: clamp(34px, 4.4vw, 56px);
+      letter-spacing: -.035em;
     }
     .diensten-grid {
       display: grid; grid-template-columns: repeat(3, 1fr);
@@ -417,7 +448,7 @@
     }
 
     /* Platform teaser */
-    .platform { background: var(--white); position: relative; overflow: hidden; }
+    .platform { background: var(--gray-50); position: relative; overflow: hidden; }
     .platform::before {
       content: '';
       position: absolute; top: -120px; right: -120px;
@@ -425,60 +456,60 @@
       background: radial-gradient(circle, rgba(27,47,160,.04) 0%, transparent 70%);
       border-radius: 50%; pointer-events: none;
     }
-    .plat-grid {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: var(--sp-2xl); align-items: center;
+    /* Force each sentence onto its own single line; <br> still breaks between them */
+    .platform .section-heading {
+      font-size: clamp(22px, 2.2vw, 28px);
+      white-space: nowrap;
     }
-    .plat-benefits {
-      list-style: none;
-      display: flex; flex-direction: column; gap: 10px;
+    .plat-header {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: var(--sp-2xl); align-items: start;
       margin-bottom: var(--sp-lg);
     }
-    .plat-benefits li {
-      display: flex; align-items: center; gap: 10px;
-      font-size: 15px; color: var(--gray-600);
+    .plat-header-right {
+      padding-top: 6px;
     }
-    .plat-benefits li::before {
-      content: '';
-      flex-shrink: 0; width: 20px; height: 20px;
-      background: var(--blue-pale);
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%231B2FA0' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
-      background-repeat: no-repeat; background-position: center;
-      border-radius: 50%;
+    .plat-header-right .section-sub { margin: 0; }
+    .plat-cats {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: var(--sp-sm);
     }
-    .plat-box {
-      background: var(--blue-primary);
-      border-radius: var(--r-xl);
-      padding: var(--sp-xl);
-      color: var(--white);
-      position: relative; overflow: hidden;
+    .plat-cat {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--r-md);
+      padding: var(--sp-md);
     }
-    .plat-box::before {
-      content: '';
-      position: absolute; top: -80px; right: -80px;
-      width: 300px; height: 300px;
-      background: radial-gradient(circle, rgba(255,255,255,.07) 0%, transparent 70%);
-      pointer-events: none;
-    }
-.plat-steps {
-      border-top: 1px solid rgba(255,255,255,.12);
-    }
-    .plat-step {
-      display: flex; gap: var(--sp-md);
-      align-items: flex-start;
-      padding: var(--sp-md) 0;
-      border-bottom: 1px solid rgba(255,255,255,.08);
-    }
-    .step-n {
+    .plat-cat-label {
       font-family: var(--font-d);
-      font-size: 24px; font-weight: 300;
-      opacity: .25; line-height: 1; min-width: 36px;
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--blue-primary);
+      font-weight: 500;
+      margin-bottom: var(--sp-md);
     }
-    .step-c h4 {
-      font-family: var(--font-d); font-size: 16px;
-      font-weight: 400; margin-bottom: 3px;
+    .plat-cat-list {
+      list-style: none;
+      display: flex; flex-direction: column;
+      gap: 14px;
     }
-    .step-c p { font-size: 13px; opacity: .58; line-height: 1.55; }
+    .plat-cat-item h4 {
+      font-family: var(--font-d);
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--gray-800);
+      margin-bottom: 2px;
+    }
+    .plat-cat-item p {
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--gray-600);
+    }
+    .plat-cta-row {
+      display: flex; justify-content: center;
+      margin-top: var(--sp-lg);
+    }
 
     /* Werken bij teaser */
     .werken-bij-teaser {
@@ -488,34 +519,65 @@
       display: grid; grid-template-columns: 1fr 1fr;
       gap: var(--sp-2xl); align-items: center;
     }
-    .wbt-pillars {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: var(--sp-md); margin-top: var(--sp-xl);
+    /* Force "Groei mee met een ambitieus team" on a single line in the half-column */
+    .werken-bij-teaser .section-heading {
+      font-size: clamp(22px, 2.4vw, 30px);
+      white-space: nowrap;
     }
-    .wbt-pillar {
-      background: rgba(255,255,255,.05);
+
+    /* Team avatar group (replaces pillar grid) */
+    .wbt-team {
+      display: flex; flex-direction: column;
+      align-items: flex-start; gap: var(--sp-lg);
+    }
+    .wbt-avatars {
+      display: inline-flex; align-items: center;
+      background: rgba(255,255,255,.04);
       border: 1px solid rgba(255,255,255,.08);
-      border-radius: var(--r-md);
-      padding: var(--sp-md);
+      border-radius: 999px;
+      padding: 8px 18px 8px 8px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.18);
     }
-    .wbt-pillar-icon {
-      width: 36px; height: 36px;
-      background: rgba(27,47,160,.5);
-      border-radius: var(--r-sm);
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: var(--sp-sm);
+    .wbt-avatars-stack { display: flex; }
+    .wbt-avatar {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: rgba(255,255,255,.08);
+      box-shadow: 0 0 0 3px var(--blue-deep);
+      margin-left: -12px;
+      position: relative;
     }
-    .wbt-pillar-icon svg {
-      width: 18px; height: 18px;
-      stroke: rgba(255,255,255,.8); fill: none;
-      stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round;
+    .wbt-avatar:first-child { margin-left: 0; }
+    .wbt-avatar img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
     }
-    .wbt-pillar h4 {
-      font-family: var(--font-d); font-size: 15px;
-      font-weight: 400; color: rgba(255,255,255,.85);
-      margin-bottom: 5px;
+    .wbt-avatars-more {
+      font-family: var(--font-d);
+      font-size: 15px; font-weight: 500;
+      color: rgba(255,255,255,.9);
+      letter-spacing: .02em;
+      margin-left: 14px;
     }
-    .wbt-pillar p { font-size: 13px; color: rgba(255,255,255,.45); line-height: 1.55; }
+    .wbt-team-caption {
+      font-family: var(--font-d);
+      font-size: clamp(18px, 1.5vw, 22px);
+      font-weight: 400;
+      color: rgba(255,255,255,.85);
+      line-height: 1.4;
+      max-width: 420px;
+    }
+    .wbt-team-caption em {
+      font-style: italic;
+      color: rgba(255,255,255,.55);
+    }
+    .wbt-team-sub {
+      font-size: 13px;
+      color: rgba(255,255,255,.4);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
 
     /* ══════════════════════════
        RESPONSIVE
@@ -523,39 +585,41 @@
     @media (max-width: 900px) {
       .hero {
         grid-template-columns: 1fr;
-        height: auto; max-height: none;
+        grid-template-rows: 1fr 1fr;
+        height: 100vh;
       }
       .hero-trust, .hero-platform {
-        height: 55vh; min-height: 400px;
+        height: 50vh; min-height: 0;
         padding: var(--sp-xl) var(--sp-md);
         justify-content: flex-end;
       }
       .hero-divider { display: none; }
-      .hero-trust-rule { top: var(--sp-xl); left: var(--sp-md); }
-      .network-badge { top: var(--sp-xl); right: var(--sp-md); }
-      .waarden-grid,
+      .hero-trust-rule { top: var(--sp-xl); right: var(--sp-md); }
+      .network-badge { top: var(--sp-xl); left: var(--sp-md); }
       .diensten-grid { grid-template-columns: 1fr 1fr; }
       .kc-slide { flex: 0 0 80%; width: 80%; }
-      .over-grid, .plat-grid, .wbt-inner { grid-template-columns: 1fr; }
+      .over-grid, .plat-header, .wbt-inner { grid-template-columns: 1fr; }
+      .plat-cats { grid-template-columns: 1fr 1fr; }
+      .platform .section-heading { white-space: normal; }
       .kantoren-header { flex-direction: column; align-items: flex-start; gap: var(--sp-sm); }
       .kantoren-header-right { text-align: left; }
-      .diensten-head { flex-direction: column; align-items: flex-start; gap: var(--sp-md); }
+      .werken-bij-teaser .section-heading { white-space: normal; }
     }
     @media (max-width: 600px) {
-      .waarden-grid, .diensten-grid,
-      .wbt-pillars { grid-template-columns: 1fr; }
+      .diensten-grid { grid-template-columns: 1fr; }
+      .plat-cats { grid-template-columns: 1fr; gap: var(--sp-lg); }
       .kc-slide { flex: 0 0 100%; width: 100%; }
       .kc-btn { width: 36px; height: 36px; }
       .stats-grid { grid-template-columns: 1fr 1fr; }
 
       /* ── Hero mobile fix ── */
-      /* Switch content from absolute to flow so it stacks cleanly */
+      /* Each panel is exactly 50vh on small screens — total 100vh, no scroll */
       .hero-trust,
       .hero-platform {
-        height: auto;
-        min-height: 520px;
-        padding-top: 108px;   /* clears nav (72px) + rule breathing room */
-        padding-bottom: 40px;
+        height: 50vh;
+        min-height: 0;
+        padding-top: 80px;   /* clears centered logo */
+        padding-bottom: 24px;
       }
       .hero-trust-content,
       .hero-platform-content {
@@ -799,20 +863,19 @@
     }
   </style>
 </head>
-<body>
+<body data-track="home">
 
 <!-- ═══ NAVIGATION ═══ -->
 <nav class="nav" id="nav">
   <div class="nav-inner">
-    <a href="index.html">
+    <a href="index.html" class="nav-brand">
       <img src="vdplogonew.png" alt="VDP Advies" class="nav-logo">
     </a>
     <ul class="nav-links">
-      <li><a href="over-vdp.html">Over VDP</a></li>
-      <li><a href="onze-diensten.html">Diensten</a></li>
-      <li><a href="vdp-model.html">Het VDP-model</a></li>
-      <li><a href="werken-bij.html">Werken bij</a></li>
-      <li><a href="contact.html" class="nav-cta">Plan een gesprek</a></li>
+      <li data-tracks="kantoor"><a href="over-vdp.html">Over ons</a></li>
+      <li data-tracks="kantoor"><a href="werken-bij.html">Werken bij</a></li>
+      <li data-tracks="platform"><a href="vdp-model.html">Het VDP-model</a></li>
+      <li data-tracks="kantoor platform" class="nav-cta-li"><a href="contact.html" class="nav-cta">Plan een gesprek</a></li>
     </ul>
     <button class="nav-toggle" id="nav-toggle" aria-label="Menu openen" aria-expanded="false">
       <span></span>
@@ -828,34 +891,7 @@
   <!-- Vertical divider -->
   <div class="hero-divider"></div>
 
-  <!-- ── LEFT: Trust / Advisory ── -->
-  <div class="hero-trust">
-
-    <!-- Top rule with label -->
-    <div class="hero-trust-rule">
-      <div class="trust-rule-line"></div>
-      <span class="trust-rule-text">VDP Advies · Opgericht 2005</span>
-    </div>
-
-    <div class="hero-trust-content">
-      <span class="hero-eyebrow">Voor ondernemers</span>
-      <h1 class="hero-trust-heading">
-        De zekerheid van een <em>gevestigd kantoor</em>
-      </h1>
-      <p class="hero-trust-desc">
-        Al meer dan 20 jaar vertrouwde partner in belastingadvies en accountancy. Persoonlijk, direct en vakkundig.
-      </p>
-      <div class="hero-trust-ctas">
-        <a href="onze-diensten.html" class="btn btn-light">
-          Onze diensten
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </a>
-        <a href="contact.html" class="btn btn-ghost-white">Neem contact op</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- ── RIGHT: Platform / Network ── -->
+  <!-- ── LEFT: Platform / Network ── -->
   <div class="hero-platform">
 
     <!-- Network counter (top-right) -->
@@ -1002,800 +1038,49 @@
 
     <!-- Platform content (bottom) -->
     <div class="hero-platform-content">
-      <span class="hero-eyebrow">Voor administratiekantoren</span>
+      <span class="hero-eyebrow">Voor uw kantoor</span>
       <h2 class="hero-platform-heading">
         De kracht van een <em>verbonden platform</em>
       </h2>
       <p class="hero-platform-desc">
         Groei samen met andere kantoren — met behoud van uw naam, uw cliënten en uw identiteit.
       </p>
-      <a href="vdp-model.html" class="btn btn-ghost-white">
-        Ontdek het VDP-model
+      <a href="vdp-model.html" class="btn btn-light btn-vdp-model">
+        Het VDP-model
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
       </a>
     </div>
   </div>
-</section>
 
-<!-- ═══ POSITIONING STRIP ═══ -->
-<div class="strip">
-  <div class="strip-inner">
-    <h2>Ervaring die u verder brengt. Een aanpak die past bij nu.</h2>
-    <p>VDP Advies combineert ruim 20 jaar vakkennis met een frisse, moderne manier van werken. Wij zijn er voor ondernemers die een betrouwbare sparringpartner zoeken — en voor kantoren die samen sterker willen worden.</p>
-  </div>
-</div>
+  <!-- ── RIGHT: Trust / Advisory ── -->
+  <div class="hero-trust">
 
-<!-- ═══ KANTOREN ═══ -->
-<section class="section kantoren" id="kantoren">
-  <div class="section-inner">
-    <div class="kantoren-header">
-      <div>
-        <p class="section-label fos">Onze locaties</p>
-        <h2 class="section-heading fos" style="margin-bottom:0">
-          Kantoren die onderdeel zijn van <em>VDP</em>
-        </h2>
-      </div>
-      <p class="kantoren-header-right fos">
-        Sterke, onafhankelijke kantoren.<br>Samen groter.
+    <!-- Top rule with label -->
+    <div class="hero-trust-rule">
+      <div class="trust-rule-line"></div>
+      <span class="trust-rule-text">VDP Advies · Opgericht 2005</span>
+    </div>
+
+    <div class="hero-trust-content">
+      <span class="hero-eyebrow">Voor ondernemers</span>
+      <h1 class="hero-trust-heading">
+        De zekerheid van een <em>gevestigd kantoor</em>
+      </h1>
+      <p class="hero-trust-desc">
+        Al meer dan 20 jaar vertrouwde partner in belastingadvies en accountancy. Persoonlijk, direct en vakkundig.
       </p>
-    </div>
-    <!-- Carousel wrapper -->
-    <div class="kc-carousel">
-
-      <!-- Prev button -->
-      <button class="kc-btn kc-prev" aria-label="Vorig kantoor" disabled>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-      </button>
-
-      <!-- Viewport clips overflow -->
-      <div class="kc-viewport">
-        <div class="kc-track">
-
-          <!-- Bussum -->
-          <div class="kantoor-card kc-slide fos" role="button" tabindex="0" data-office="bussum" aria-haspopup="dialog" aria-label="Bekijk kantoor Bussum">
-            <div class="kantoor-img">
-              <img src="brand_assets/KantoorBussum.jpg" alt="Kantoor Bussum" loading="lazy">
-            </div>
-            <div class="kantoor-info">
-              <h3 class="kantoor-name">Bussum</h3>
-              <p class="kantoor-addr">Meerweg 45 · 1405 BD Bussum</p>
-              <span class="kantoor-contact">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.17 3.47 2 2 0 0 1 3.14 1h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.69 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.56 2.81.69A2 2 0 0 1 21 16z"/></svg>
-                035 – 695 6900
-              </span>
-              <span class="kantoor-map-hint">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                Bekijk op kaart
-              </span>
-            </div>
-          </div>
-
-          <!-- Hilversum -->
-          <div class="kantoor-card kc-slide fos" role="button" tabindex="0" data-office="hilversum" aria-haspopup="dialog" aria-label="Bekijk kantoor Hilversum">
-            <div class="kantoor-img">
-              <img src="brand_assets/KantoorHilversum.jpg" alt="Kantoor Hilversum" loading="lazy">
-            </div>
-            <div class="kantoor-info">
-              <h3 class="kantoor-name">Hilversum</h3>
-              <p class="kantoor-addr">Melkpad 20a · 1217 KC Hilversum</p>
-              <span class="kantoor-contact">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.17 3.47 2 2 0 0 1 3.14 1h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.69 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.56 2.81.69A2 2 0 0 1 21 16z"/></svg>
-                035 – 698 0414
-              </span>
-              <span class="kantoor-map-hint">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                Bekijk op kaart
-              </span>
-            </div>
-          </div>
-
-          <!-- Amsterdam -->
-          <div class="kantoor-card kc-slide fos" role="button" tabindex="0" data-office="amsterdam" aria-haspopup="dialog" aria-label="Bekijk kantoor Amsterdam">
-            <div class="kantoor-img">
-              <img src="brand_assets/KantoorAmsterdam.jpg" alt="Kantoor Amsterdam" loading="lazy">
-            </div>
-            <div class="kantoor-info">
-              <h3 class="kantoor-name">Amsterdam</h3>
-              <p class="kantoor-addr">Keizersgracht 387D · 1016 EJ Amsterdam</p>
-              <span class="kantoor-contact">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-                info@vdpadvies.nl
-              </span>
-              <span class="kantoor-map-hint">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                Bekijk op kaart
-              </span>
-            </div>
-          </div>
-
-        </div><!-- /kc-track -->
-      </div><!-- /kc-viewport -->
-
-      <!-- Next button -->
-      <button class="kc-btn kc-next" aria-label="Volgend kantoor">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-      </button>
-
-    </div><!-- /kc-carousel -->
-
-    <!-- Dot indicators -->
-    <div class="kc-dots" role="tablist" aria-label="Kantoor selectie">
-      <button class="kc-dot kc-dot-active" role="tab" aria-label="Bussum"></button>
-      <button class="kc-dot" role="tab" aria-label="Hilversum"></button>
-      <button class="kc-dot" role="tab" aria-label="Amsterdam"></button>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ OVER VDP ═══ -->
-<section class="section over-vdp" id="over">
-  <div class="section-inner">
-    <div class="over-grid">
-      <div>
-        <p class="section-label fos">Over VDP Advies</p>
-        <h2 class="section-heading fos">Ruim 20 jaar <em>vertrouwde partner</em></h2>
-        <p class="section-sub fos">VDP Advies is een advieskantoor op het gebied van belastingadvies en accountancy. Vanuit onze vestigingen in Bussum, Hilversum en Amsterdam bedienen wij een gevarieerd cliëntenpakket — voornamelijk gericht op de zakelijke MKB-markt en particulieren.</p>
-        <p class="fos" style="font-size:16px;line-height:1.75;color:var(--gray-600);margin-bottom:var(--sp-xl)">
-          Wij zijn een laagdrempelige organisatie die haar cliënten serieus neemt. Uw belang staat bij ons centraal — niet als slogan, maar als werkwijze.
-        </p>
-        <div class="stats-grid fos">
-          <div class="stat"><div class="stat-n">20+</div><div class="stat-l">jaar ervaring</div></div>
-          <div class="stat"><div class="stat-n">3</div><div class="stat-l">vestigingen</div></div>
-          <div class="stat"><div class="stat-n">MKB</div><div class="stat-l">&amp; particulieren</div></div>
-          <div class="stat"><div class="stat-n">Direct</div><div class="stat-l">bereikbaar</div></div>
-        </div>
-        <div style="margin-top:var(--sp-xl)" class="fos">
-          <a href="over-vdp.html" class="btn btn-primary">
-            Lees meer over VDP
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </a>
-        </div>
-      </div>
-      <div class="over-img-wrap fos">
-        <div class="over-img">
-          <video class="over-vid"
-                 src="VDPVID.mp4"
-                 autoplay muted loop playsinline
-                 preload="auto"
-                 aria-label="VDP Advies — ondernemers in gesprek">
-          </video>
-        </div>
-        <div class="over-badge">
-          <span class="badge-n">20+</span>
-          <span class="badge-t">jaar vertrouwen</span>
-        </div>
+      <div class="hero-trust-ctas">
+        <a href="over-vdp.html" class="btn btn-light">
+          Over ons
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ WAARDEN ═══ -->
-<section class="section waarden section-dark" id="waarden">
-  <div class="section-inner">
-    <p class="section-label fos">Waar VDP voor staat</p>
-    <h2 class="section-heading fos">Vier pijlers. Één manier van werken.</h2>
-    <div class="waarden-grid">
-      <div class="w-card fos">
-        <div class="w-icon">
-          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </div>
-        <h3 class="w-title">Betrouwbare sparringpartner</h3>
-        <p class="w-desc">Wij kennen uw situatie en denken altijd een stap verder mee. Niet achter een bureau, maar naast u.</p>
-      </div>
-      <div class="w-card fos" style="transition-delay:80ms">
-        <div class="w-icon">
-          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-        </div>
-        <h3 class="w-title">Onderscheidend vermogen</h3>
-        <p class="w-desc">Niet standaard. Wij zoeken actief naar de beste aanpak voor uw specifieke situatie.</p>
-      </div>
-      <div class="w-card fos" style="transition-delay:160ms">
-        <div class="w-icon">
-          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-        </div>
-        <h3 class="w-title">Afspraak is afspraak</h3>
-        <p class="w-desc">Deadlines zijn geen stressfactor maar een vanzelfsprekendheid. U weet waar u aan toe bent.</p>
-      </div>
-      <div class="w-card fos" style="transition-delay:240ms">
-        <div class="w-icon">
-          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-        </div>
-        <h3 class="w-title">Brede dienstverlening</h3>
-        <p class="w-desc">Van dagelijkse administratie tot diepgaand belastingadvies — alles onder één dak.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ DIENSTEN PREVIEW ═══ -->
-<section class="section diensten" id="diensten">
-  <div class="section-inner">
-    <div class="diensten-head">
-      <div>
-        <p class="section-label fos">Diensten</p>
-        <h2 class="section-heading fos" style="margin-bottom:0">
-          Voor elke ondernemer<br>de juiste aanpak
-        </h2>
-      </div>
-      <a href="onze-diensten.html" class="btn btn-primary fos">
-        Bekijk alle diensten
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
-    </div>
-    <div class="diensten-grid">
-      <div class="d-card fos">
-        <div class="d-icon"><svg viewBox="0 0 24 24"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="8" y1="10" x2="16" y2="10"/><line x1="8" y1="14" x2="12" y2="14"/></svg></div>
-        <h3 class="d-title">Belastingadvies</h3>
-        <p class="d-desc">Fiscale kansen benutten en risico's beheersen. Persoonlijk, deskundig en vooruitdenkend.</p>
-      </div>
-      <div class="d-card fos" style="transition-delay:80ms">
-        <div class="d-icon"><svg viewBox="0 0 24 24"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
-        <h3 class="d-title">Accountancy &amp; advisering</h3>
-        <p class="d-desc">U bent druk met ondernemen. Wij zorgen voor overzicht, inzicht en continuïteit.</p>
-      </div>
-      <div class="d-card fos" style="transition-delay:160ms">
-        <div class="d-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
-        <h3 class="d-title">Estate planning</h3>
-        <p class="d-desc">Vermogensoverdracht fiscaal zo voordelig mogelijk geregeld — nu en bij overlijden.</p>
-      </div>
-      <div class="d-card fos" style="transition-delay:80ms">
-        <div class="d-icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
-        <h3 class="d-title">Rijksmonumenten</h3>
-        <p class="d-desc">Als eigenaar van een rijksmonument heeft u recht op bijzondere fiscale voordelen.</p>
-      </div>
-      <div class="d-card fos" style="transition-delay:160ms">
-        <div class="d-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
-        <h3 class="d-title">Vrije beroepen &amp; medisch</h3>
-        <p class="d-desc">Specialist op het gebied van vrije beroepen en medisch specialisten.</p>
-      </div>
-      <div class="d-card fos" style="transition-delay:240ms">
-        <div class="d-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-        <h3 class="d-title">Begeleiding echtscheiding</h3>
-        <p class="d-desc">Financieel en fiscaal inzicht in een moeilijke periode — helder en betrokken.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ PLATFORM TEASER ═══ -->
-<section class="section platform" id="platform">
-  <div class="section-inner">
-    <div class="plat-grid">
-      <div>
-        <p class="section-label fos">Voor administratiekantoren</p>
-        <h2 class="section-heading fos">
-          Een nieuwe richting voor uw kantoor.<br>
-          <em>Zonder te verliezen</em> wat het sterk maakt.
-        </h2>
-        <p class="section-sub fos">
-          Wilt u groeien, maar wilt u ook uw eigen naam en cliënten behouden? Het VDP-model biedt centrale ondersteuning op HR, kennisdeling en tooling — met behoud van uw identiteit en ondernemersvrijheid.
-        </p>
-        <ul class="plat-benefits fos">
-          <li>Eigen naam &amp; identiteit behouden</li>
-          <li>Centrale HR &amp; recruitment</li>
-          <li>Kennisdeling &amp; academy</li>
-          <li>Automatisering &amp; tooling</li>
-          <li>Schaalvoordelen, persoonlijke aanpak</li>
-          <li>Zekerheid voor continuïteit</li>
-        </ul>
-        <div class="fos" style="display:flex;gap:var(--sp-sm);flex-wrap:wrap">
-          <a href="vdp-model.html" class="btn btn-primary">Ontdek het VDP-model</a>
-          <a href="contact.html" class="btn btn-ghost">Ik ben geïnteresseerd</a>
-        </div>
-      </div>
-      <div class="plat-box fos">
-
-        <div class="plat-steps">
-          <div class="plat-step">
-            <span class="step-n">01</span>
-            <div class="step-c">
-              <h4>Samenwerken</h4>
-              <p>U behoudt uw identiteit. VDP ondersteunt op de achtergrond.</p>
-            </div>
-          </div>
-          <div class="plat-step">
-            <span class="step-n">02</span>
-            <div class="step-c">
-              <h4>Groeien</h4>
-              <p>Centrale ondersteuning vergroot uw slagkracht.</p>
-            </div>
-          </div>
-          <div class="plat-step">
-            <span class="step-n">03</span>
-            <div class="step-c">
-              <h4>Zekerheid voor later</h4>
-              <p>Een duurzame toekomst voor uw kantoor en cliënten.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ WERKEN BIJ TEASER ═══ -->
-<section class="section werken-bij-teaser">
-  <div class="section-inner">
-    <div class="wbt-inner">
-      <div>
-        <p class="section-label fos" style="color:rgba(255,255,255,.35)">Werken bij VDP</p>
-        <h2 class="section-heading fos" style="color:var(--white)">
-          Groei mee met een <em style="color:rgba(255,255,255,.6)">ambitieus team</em>
-        </h2>
-        <p class="fos" style="font-size:16px;line-height:1.75;color:rgba(255,255,255,.58);margin-bottom:var(--sp-xl);max-width:480px">
-          Jong, deskundig en verbonden. Bij VDP werk je in een omgeving waar initiatief wordt beloond, kennisdeling centraal staat en je zichtbaar groeit — als professional én als persoon.
-        </p>
-        <div class="fos" style="display:flex;gap:var(--sp-sm);flex-wrap:wrap">
-          <a href="werken-bij.html" class="btn btn-light">Bekijk vacatures</a>
-        </div>
-      </div>
-      <div class="wbt-pillars fos">
-        <div class="wbt-pillar">
-          <div class="wbt-pillar-icon">
-            <svg viewBox="0 0 24 24"><polyline points="13 17 18 12 13 7"/><polyline points="6 17 11 12 6 7"/></svg>
-          </div>
-          <h4>Ambitie &amp; groei</h4>
-          <p>Ruimte om te ontwikkelen — en wij investeren daarin.</p>
-        </div>
-        <div class="wbt-pillar">
-          <div class="wbt-pillar-icon">
-            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          </div>
-          <h4>Echt een team</h4>
-          <p>Mensen die je kent en op kunt bouwen.</p>
-        </div>
-        <div class="wbt-pillar">
-          <div class="wbt-pillar-icon">
-            <svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-          </div>
-          <h4>Continu leren</h4>
-          <p>VDP Academy en collegiale kennisdeling.</p>
-        </div>
-        <div class="wbt-pillar">
-          <div class="wbt-pillar-icon">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-          </div>
-          <h4>Leuke sfeer</h4>
-          <p>Teamdagen, uitjes en samen lachen.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ FOOTER ═══ -->
-<footer class="footer">
-  <div class="footer-in">
-    <div class="footer-top">
-      <div>
-        <img src="vdplogonew.png" alt="VDP Advies" class="footer-logo">
-        <p class="footer-tagline">Vertrouwd in advies.<br>Modern in samenwerking.</p>
-      </div>
-      <div>
-        <p class="footer-col-title">VDP Advies</p>
-        <ul class="footer-col-links">
-          <li><a href="over-vdp.html">Over VDP</a></li>
-          <li><a href="onze-diensten.html">Onze diensten</a></li>
-          <li><a href="vdp-model.html">Het VDP-model</a></li>
-          <li><a href="werken-bij.html">Werken bij</a></li>
-        </ul>
-      </div>
-      <div>
-        <p class="footer-col-title">Diensten</p>
-        <ul class="footer-col-links">
-          <li><a href="onze-diensten.html">Belastingadvies</a></li>
-          <li><a href="onze-diensten.html">Accountancy</a></li>
-          <li><a href="onze-diensten.html">Estate planning</a></li>
-          <li><a href="onze-diensten.html">Rijksmonumenten</a></li>
-        </ul>
-      </div>
-      <div>
-        <p class="footer-col-title">Contact</p>
-        <ul class="footer-col-links">
-          <li><a href="contact.html">Bussum · 035-6956900</a></li>
-          <li><a href="contact.html">Hilversum · 035-6980414</a></li>
-          <li><a href="contact.html">Amsterdam · 035-6980414</a></li>
-          <li><a href="mailto:info@vdpadvies.nl">info@vdpadvies.nl</a></li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p class="footer-copy">© 2024 VDP Advies · Alle rechten voorbehouden</p>
-      <p class="footer-copy">Bussum · Hilversum · Amsterdam</p>
-    </div>
-  </div>
-</footer>
 
 <script src="shared.js" defer></script>
 
-<!-- ═══ KANTOOR MODAL ═══ -->
-<div id="km-overlay" class="km-overlay" role="dialog" aria-modal="true" aria-labelledby="km-heading" hidden>
-  <div class="km-backdrop" id="km-backdrop"></div>
-  <div class="km-card">
-
-    <!-- Close button -->
-    <button class="km-close" id="km-close-btn" aria-label="Sluiten">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-      </svg>
-    </button>
-
-    <!-- Photo header -->
-    <div class="km-photo">
-      <img id="km-img" src="" alt="" class="km-photo-img">
-      <div class="km-photo-grad"></div>
-      <div class="km-photo-info">
-        <p class="km-kicker">VDP Advies</p>
-        <h2 id="km-heading" class="km-heading"></h2>
-      </div>
-    </div>
-
-    <!-- Body -->
-    <div class="km-body">
-
-      <!-- Office details -->
-      <div class="km-details">
-        <p id="km-addr" class="km-addr"></p>
-        <p id="km-pc"   class="km-pc"></p>
-        <div id="km-contacts" class="km-contacts"></div>
-        <a href="contact.html" class="km-cta">
-          Plan een gesprek
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-          </svg>
-        </a>
-      </div>
-
-      <!-- Interactive Leaflet map -->
-      <div class="km-map-wrap">
-        <div id="km-leaflet-map" aria-label="Interactieve kaart met kantoorlocatie"></div>
-        <p class="km-map-cap">Gebruik + / − om in te zoomen</p>
-      </div>
-
-    </div><!-- /km-body -->
-  </div><!-- /km-card -->
-</div><!-- /km-overlay -->
-
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script>
-(function () {
-  'use strict';
-
-  /* ── Office data (includes coordinates for Leaflet) ── */
-  var OFFICES = {
-    bussum: {
-      name:     'Bussum',
-      address:  'Meerweg 45',
-      postcode: '1405 BD Bussum',
-      phone:    '035 – 695 6900',
-      fax:      '035 – 695 6969',
-      email:    'info@vdpadvies.nl',
-      image:    'brand_assets/KantoorBussum.jpg',
-      latlng:   [52.278587, 5.147075]   /* Meerweg 45, Bussum */
-    },
-    hilversum: {
-      name:     'Hilversum',
-      address:  'Melkpad 20a',
-      postcode: '1217 KC Hilversum',
-      phone:    '035 – 698 0414',
-      fax:      '035 – 698 2154',
-      email:    'info@vdpadvies.nl',
-      image:    'brand_assets/KantoorHilversum.jpg',
-      latlng:   [52.227645, 5.172671]   /* Melkpad 20a, Hilversum */
-    },
-    amsterdam: {
-      name:     'Amsterdam',
-      address:  'Keizersgracht 387D',
-      postcode: '1016 EJ Amsterdam',
-      email:    'info@vdpadvies.nl',
-      image:    'brand_assets/KantoorAmsterdam.jpg',
-      latlng:   [52.363812, 4.888685]   /* Keizersgracht 387D, Amsterdam */
-    }
-  };
-
-  /* ── DOM refs ───────────────────────────────────────── */
-  var overlay    = document.getElementById('km-overlay');
-  var backdrop   = document.getElementById('km-backdrop');
-  var closeBtn   = document.getElementById('km-close-btn');
-  var imgEl      = document.getElementById('km-img');
-  var headingEl  = document.getElementById('km-heading');
-  var addrEl     = document.getElementById('km-addr');
-  var pcEl       = document.getElementById('km-pc');
-  var contactsEl = document.getElementById('km-contacts');
-  var card       = overlay.querySelector('.km-card');
-  var focusTrigger = null;
-  var isOpen = false;
-
-  /* ── SVG icons ──────────────────────────────────────── */
-  var SVG_PHONE = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.17 3.47 2 2 0 0 1 3.14 1h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.69 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.33 1.85.56 2.81.69A2 2 0 0 1 21 16z"/></svg>';
-  var SVG_EMAIL = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>';
-
-  /* ══════════════════════════════════════════
-     LEAFLET MAP
-  ══════════════════════════════════════════ */
-  var leafletMap     = null;   /* the L.map instance        */
-  var leafletMarkers = {};     /* key → L.marker            */
-
-  /* Build a DivIcon matching VDP brand */
-  function makeIcon(active) {
-    return L.divIcon({
-      className: 'km-lf-icon' + (active ? ' km-lf-active' : ''),
-      html: '<div class="km-lf-wrap"><div class="km-lf-ring"></div><div class="km-lf-dot"></div></div>',
-      iconSize:   [28, 28],
-      iconAnchor: [14, 14],
-      tooltipAnchor: [0, -14]
-    });
-  }
-
-  function initLeafletMap() {
-    if (leafletMap || !window.L) return;
-
-    leafletMap = L.map('km-leaflet-map', {
-      zoomControl:       true,
-      scrollWheelZoom:   false,   /* enabled on mouseenter (see below) */
-      attributionControl: true,
-      dragging:          true,
-      doubleClickZoom:   true,
-    });
-
-    /* CartoDB Positron — clean minimal grey, free, no API key */
-    L.tileLayer(
-      'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-      {
-        attribution: '&copy; <a href="https://openstreetmap.org">OpenStreetMap</a> &copy; <a href="https://carto.com">CARTO</a>',
-        subdomains: 'abcd',
-        maxZoom: 19,
-      }
-    ).addTo(leafletMap);
-
-    /* Add a marker for every office */
-    Object.keys(OFFICES).forEach(function (key) {
-      var office = OFFICES[key];
-      var marker = L.marker(office.latlng, { icon: makeIcon(false) })
-        .bindTooltip(office.name, {
-          permanent:  false,
-          direction:  'top',
-          className:  'km-lf-tooltip',
-        })
-        .addTo(leafletMap);
-      leafletMarkers[key] = marker;
-    });
-
-    /* Enable scroll-wheel zoom only while hovering the map */
-    var mapEl = document.getElementById('km-leaflet-map');
-    mapEl.addEventListener('mouseenter', function () {
-      leafletMap.scrollWheelZoom.enable();
-    });
-    mapEl.addEventListener('mouseleave', function () {
-      leafletMap.scrollWheelZoom.disable();
-    });
-
-    /* Initial overview — Amsterdam / Gooi region */
-    leafletMap.setView([52.30, 5.05], 10);
-  }
-
-  function focusLeafletOffice(key) {
-    if (!leafletMap) return;
-
-    /* Update all marker icons */
-    Object.keys(leafletMarkers).forEach(function (k) {
-      var el = leafletMarkers[k].getElement();
-      if (el) el.classList.toggle('km-lf-active', k === key);
-    });
-
-    /* Fly to bounds that keep all three offices visible */
-    var bounds = L.latLngBounds([
-      OFFICES.bussum.latlng,
-      OFFICES.hilversum.latlng,
-      OFFICES.amsterdam.latlng,
-    ]);
-    leafletMap.flyToBounds(bounds, {
-      padding:       [32, 32],
-      duration:      0.9,
-      easeLinearity: 0.3,
-    });
-  }
-
-  /* ── Open ───────────────────────────────────────────── */
-  function openModal(key, trigger) {
-    var office = OFFICES[key];
-    if (!office) return;
-
-    focusTrigger = trigger || null;
-
-    /* Populate text / photo */
-    imgEl.src = office.image;
-    imgEl.alt = 'VDP Kantoor ' + office.name;
-    headingEl.textContent = office.name;
-    addrEl.textContent    = office.address;
-    pcEl.textContent      = office.postcode;
-
-    contactsEl.innerHTML = '';
-    if (office.phone) {
-      var tel = document.createElement('a');
-      tel.href = 'tel:' + office.phone.replace(/[^0-9]/g, '');
-      tel.className = 'km-contact-row';
-      tel.innerHTML = SVG_PHONE + office.phone;
-      contactsEl.appendChild(tel);
-    }
-    if (office.fax) {
-      var fax = document.createElement('p');
-      fax.className = 'km-contact-fax';
-      fax.textContent = 'Fax: ' + office.fax;
-      contactsEl.appendChild(fax);
-    }
-    var mail = document.createElement('a');
-    mail.href = 'mailto:' + office.email;
-    mail.className = 'km-contact-row';
-    mail.innerHTML = SVG_EMAIL + office.email;
-    contactsEl.appendChild(mail);
-
-    /* Show overlay */
-    overlay.removeAttribute('hidden');
-    overlay.classList.remove('km-out');
-    overlay.classList.add('km-in');
-    card.addEventListener('animationend', function handler() {
-      overlay.classList.remove('km-in');
-      card.removeEventListener('animationend', handler);
-    });
-
-    document.body.style.overflow = 'hidden';
-    isOpen = true;
-    closeBtn.focus();
-
-    /* Init / resize / focus the Leaflet map.
-       Two rAF frames give the browser time to paint the now-visible
-       overlay before Leaflet measures its container. */
-    requestAnimationFrame(function () {
-      requestAnimationFrame(function () {
-        if (!leafletMap) {
-          initLeafletMap();
-        } else {
-          leafletMap.invalidateSize();
-        }
-        focusLeafletOffice(key);
-      });
-    });
-  }
-
-  /* ── Close ──────────────────────────────────────────── */
-  function closeModal() {
-    if (!isOpen) return;
-    overlay.classList.remove('km-in');
-    overlay.classList.add('km-out');
-    card.addEventListener('animationend', function handler() {
-      overlay.classList.remove('km-out');
-      overlay.setAttribute('hidden', '');
-      document.body.style.overflow = '';
-      isOpen = false;
-      if (focusTrigger) { focusTrigger.focus(); focusTrigger = null; }
-      card.removeEventListener('animationend', handler);
-    });
-  }
-
-  /* ── Wire office cards ──────────────────────────────── */
-  document.querySelectorAll('.kantoor-card[data-office]').forEach(function (card) {
-    card.addEventListener('click', function () { openModal(this.dataset.office, this); });
-    card.addEventListener('keydown', function (e) {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        openModal(this.dataset.office, this);
-      }
-    });
-  });
-
-  /* ── Close triggers ─────────────────────────────────── */
-  closeBtn.addEventListener('click', closeModal);
-  backdrop.addEventListener('click', closeModal);
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && isOpen) closeModal();
-  });
-
-  /* ── Focus trap ─────────────────────────────────────── */
-  overlay.addEventListener('keydown', function (e) {
-    if (e.key !== 'Tab') return;
-    var focusable = Array.from(overlay.querySelectorAll(
-      'button, a[href], [tabindex]:not([tabindex="-1"])'
-    ));
-    if (!focusable.length) return;
-    var first = focusable[0];
-    var last  = focusable[focusable.length - 1];
-    if (e.shiftKey && document.activeElement === first) {
-      e.preventDefault(); last.focus();
-    } else if (!e.shiftKey && document.activeElement === last) {
-      e.preventDefault(); first.focus();
-    }
-  });
-
-  /* ══════════════════════════════════════════
-     KANTOREN CAROUSEL
-  ══════════════════════════════════════════ */
-  (function () {
-    var track    = document.querySelector('.kc-track');
-    var slides   = document.querySelectorAll('.kc-slide');
-    var prevBtn  = document.querySelector('.kc-prev');
-    var nextBtn  = document.querySelector('.kc-next');
-    var dots     = document.querySelectorAll('.kc-dot');
-    var total    = slides.length;   /* 3 */
-    var current  = 0;
-    var GAP      = 24;              /* px — must match CSS gap */
-
-    function getVisible() {
-      /* Returns how many full slides fit in the viewport */
-      var vpw = track.parentElement.offsetWidth;
-      var sw  = slides[0] ? slides[0].offsetWidth : vpw;
-      return Math.max(1, Math.floor((vpw + GAP) / (sw + GAP)));
-    }
-
-    function update(animate) {
-      if (animate === false) {
-        track.style.transition = 'none';
-      } else {
-        track.style.transition = '';
-      }
-      var sw = slides[0] ? slides[0].offsetWidth : 0;
-      track.style.transform = 'translateX(' + (-(current * (sw + GAP))) + 'px)';
-
-      var vis = getVisible();
-      prevBtn.disabled = current === 0;
-      nextBtn.disabled = current >= total - vis;
-
-      dots.forEach(function (d, i) {
-        d.classList.toggle('kc-dot-active', i === current);
-      });
-
-      /* Re-enable transition after a frame (for no-animate calls) */
-      if (animate === false) {
-        requestAnimationFrame(function () {
-          track.style.transition = '';
-        });
-      }
-    }
-
-    prevBtn.addEventListener('click', function () {
-      if (current > 0) { current--; update(); }
-    });
-
-    nextBtn.addEventListener('click', function () {
-      var vis = getVisible();
-      if (current < total - vis) { current++; update(); }
-    });
-
-    dots.forEach(function (d, i) {
-      d.addEventListener('click', function () {
-        var vis = getVisible();
-        current = Math.min(i, total - vis);
-        update();
-      });
-    });
-
-    /* Touch / swipe */
-    var touchStartX = 0;
-    track.addEventListener('touchstart', function (e) {
-      touchStartX = e.touches[0].clientX;
-    }, { passive: true });
-    track.addEventListener('touchend', function (e) {
-      var dx  = touchStartX - e.changedTouches[0].clientX;
-      var vis = getVisible();
-      if (Math.abs(dx) > 48) {
-        if (dx > 0 && current < total - vis) { current++; }
-        else if (dx < 0 && current > 0) { current--; }
-        update();
-      }
-    }, { passive: true });
-
-    /* Recalculate on resize — maintain clamp */
-    window.addEventListener('resize', function () {
-      var vis = getVisible();
-      if (current > total - vis) { current = Math.max(0, total - vis); }
-      update(false);
-    });
-
-    /* Initial render */
-    update(false);
-  }());
-
-}());
-</script>
 </body>
 </html>
